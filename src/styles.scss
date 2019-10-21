@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~animate.css/animate.min.css';
+@import '../node_modules/@fortawesome/fontawesome-free/css/all.css';
+
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro|Sarabun|Lato&display=swap');
+
+$rpia-red: #C40000;
+
+:root {
+    --rpia-red: $rpia-red;
+}
+
+* {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 200;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Sarabun', sans-serif;
+}
+
+.btn-primary {
+    background-color: white;//lighten($rpia-red, 45);
+    border-color: $rpia-red;//lighten($rpia-red, 40);
+    color: $rpia-red;//mix($rpia-red, #444444);
+}
