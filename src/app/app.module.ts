@@ -8,6 +8,7 @@ import { NightCrewsComponent } from './night-crews/night-crews.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TrainingChecklistComponent } from './training-checklist/training-checklist.component';
 import { TrainingEvaluationComponent } from './training-evaluation/training-evaluation.component';
+import { RedirectCardComponent } from './redirect-card/redirect-card.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { TrainingEvaluationComponent } from './training-evaluation/training-eval
     NightCrewsComponent,
     DashboardComponent,
     TrainingChecklistComponent,
-    TrainingEvaluationComponent
+    TrainingEvaluationComponent,
+    RedirectCardComponent
   ],
   imports: [
     BrowserModule,
