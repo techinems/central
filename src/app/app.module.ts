@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TrainingChecklistComponent } from './training-checklist/training-checklist.component';
 import { TrainingEvaluationComponent } from './training-evaluation/training-evaluation.component';
 import { RedirectCardComponent } from './redirect-card/redirect-card.component';
+import { SideNavbarComponent } from './side-navbar/side-navbar.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { RedirectCardComponent } from './redirect-card/redirect-card.component';
     DashboardComponent,
     TrainingChecklistComponent,
     TrainingEvaluationComponent,
-    RedirectCardComponent
+    RedirectCardComponent,
+    SideNavbarComponent
   ],
   imports: [
     BrowserModule,

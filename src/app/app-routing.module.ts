@@ -5,6 +5,7 @@ import { NightCrewsComponent } from './night-crews/night-crews.component';
 import { TrainingChecklistComponent } from './training-checklist/training-checklist.component';
 import { TrainingEvaluationComponent } from './training-evaluation/training-evaluation.component';
 import { RedirectCardComponent } from './redirect-card/redirect-card.component';
+import { SideNavbarComponent } from './side-navbar/side-navbar.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'night-crews', component: NightCrewsComponent },
   { path: 'training-checklist', component: TrainingChecklistComponent },
   { path: 'training-evaluation', component: TrainingEvaluationComponent },
+  { path: 'side-nav', component: SideNavbarComponent },
 ];
 
 @NgModule({
