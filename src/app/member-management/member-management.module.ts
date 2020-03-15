@@ -5,8 +5,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 
+import { MemberManagementServiceService } from '../services/member-management-service.service';
+
 import { MemberTableComponent } from './member-table/member-table.component';
 import { MemberInfoComponent } from './member-info/member-info.component';
+
 
 const MemberManagemenRoutes: Routes = [
   { path: 'member-management',  component: MemberTableComponent },
@@ -24,7 +27,9 @@ const MemberManagemenRoutes: Routes = [
     CommonModule,
     RouterModule.forRoot(MemberManagemenRoutes)
   ],
-  providers:[],
+  providers:[
+    MemberManagementServiceService
+  ],
   exports: [
     MemberTableComponent,
     RouterModule,

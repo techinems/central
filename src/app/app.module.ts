@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { CoreService } from './services/core-service.service';
+import { MemberManagementServiceService } from './services/member-management-service.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MemberManagementModule } from './member-management/member-management.module';
@@ -33,7 +34,8 @@ import { LoginComponent } from './login/login.component';
     MemberManagementModule,
   ],
   providers: [
-    CoreService
+    CoreService,
+    MemberManagementServiceService,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MemberManagementServiceService } from '../../services/member-management-service.service';
+import { Observable, from } from 'rxjs';
+
 
 @Component({
   selector: 'central-member-info',
@@ -7,10 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MemberInfoComponent implements OnInit {
 
-  
-  constructor() { }
+  people: Observable<any[]>;
+  selectedPersonId = '5a15b13c36e7a7f00cf0d7cb';
+
+  constructor(
+    private memberManageService: MemberManagementServiceService
+  ) { }
 
   ngOnInit() {
+    this.people = this.memberManageService.getMockPeople();
   }
 
 }
