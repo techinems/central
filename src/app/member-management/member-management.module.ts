@@ -3,27 +3,35 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
 import { NgSelectModule } from '@ng-select/ng-select';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MemberManagementServiceService } from '../services/member-management-service.service';
 
 import { MemberTableComponent } from './member-table/member-table.component';
 import { MemberInfoComponent } from './member-info/member-info.component';
+import { NewMemberComponent } from './new-member/new-member.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastNotificationsModule } from "ngx-toast-notifications";
 
 const MemberManagemenRoutes: Routes = [
   { path: 'member-management',  component: MemberTableComponent },
   { path: 'member-info',  component: MemberInfoComponent },
+  { path: 'new-member',  component: NewMemberComponent }
 ];
 
 @NgModule({
   declarations: [
     MemberTableComponent,
     MemberInfoComponent,
+    NewMemberComponent,
   ],
   imports: [
+    BrowserAnimationsModule,
+    ToastNotificationsModule,
     NgSelectModule,
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     RouterModule.forRoot(MemberManagemenRoutes)
   ],

@@ -52,8 +52,8 @@ export class MemberTableComponent implements OnInit {
   }
 
   createUser(){
-    console.log('TODO: jump to user-create page');
-    
+    console.log('jump to user-create page');
+    this.router.navigate(['/new-member']);
     
   }
 
