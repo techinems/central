@@ -1,0 +1,46 @@
+<h1>Member Basic Info</h1>
+<hr>
+
+<div class="row">
+    <div class="col-4 text-right">
+        <h5>Name : </h5>
+    </div>
+    <div class="col-8">
+        <h5>Foo Bar</h5>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-4 text-right">
+        <h5>Email : </h5>
+    </div>
+    <div class="col-8">
+        <h5>foo.bar@foo.bar</h5>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-4 text-right">
+        <h5>Phone Number : </h5>
+    </div>
+    <div class="col-8">
+        <h5>852-857-2957</h5>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+
+<h1>Member Permissions</h1>
+<hr>
+
+<!-- <ng-select items={{items}} ></ng-select> -->
+<ng-select [items]="people"
+           bindLabel="name"
+           autofocus
+           bindValue="id"
+           [(ngModel)]="selectedPersonId">
+</ng-select>
+
+<br/>Selected: {{selectedPersonId}}

@@ -1,9 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { CoreService } from './services/core-service';
+import { CoreService } from './services/core-service.service';
+import { MemberManagementServiceService } from './services/member-management-service.service';
 
 import { AppRoutingModule } from './app-routing.module';
+import { MemberManagementModule } from './member-management/member-management.module';
+
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { NightCrewsComponent } from './night-crews/night-crews.component';
@@ -22,14 +26,16 @@ import { LoginComponent } from './login/login.component';
     TrainingChecklistComponent,
     TrainingEvaluationComponent,
     RedirectCardComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MemberManagementModule,
   ],
   providers: [
-    CoreService
+    CoreService,
+    MemberManagementServiceService,
   ],
   bootstrap: [AppComponent]
 })
