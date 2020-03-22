@@ -29,16 +29,19 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.data.toggleNavVisibility('visible');
     this.router.navigate(['/night-crews']);
-    this.cookieService.set('isLoggedIn','1')
+    this.cookieService.set('isLoggedIn','true')
   }
 
   ngOnInit() {
     this.data.currentFoo.subscribe(message =>this.message = message);
-    if(this.cookieService.get('isLoggedIn')){
+    if(this.cookieService.get('isLoggedIn') === 'true'){
       console.log('user_logged in');
       this.router.navigate(['/dashboard']);
-    
-      
+    } 
+    if(this.cookieService.get('isLoggedIn') === 'false'){
+      console.log('not user_logged in');
+      this.data.toggleNavVisibility('hidden')
+      this.router.navigate(['/']);
     }    
   }
 
