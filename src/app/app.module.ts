@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { CoreService } from './services/core-service.service';
 import { MemberManagementServiceService } from './services/member-management-service.service';
+import { ApiService } from './services/api.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MemberManagementModule } from './member-management/member-management.module';
@@ -39,6 +40,7 @@ import { LoginComponent } from './login/login.component';
     CoreService,
     MemberManagementServiceService,
     HttpClientModule,
+    ApiService,
   ],
   bootstrap: [AppComponent]
 })

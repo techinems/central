@@ -4,13 +4,14 @@ import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Observable ,  throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { environment } from '../../environments/environment';
+import { ApiService } from './api.service';
 
 @Injectable()
 export class MemberManagementServiceService {
 
   constructor(
     private http: HttpClient,
+    private apiService: ApiService,
   ) { }
 
   private formatErrors(error: any) {
@@ -217,7 +218,9 @@ export class MemberManagementServiceService {
   }  
 
   getUser(): Observable<any>{
-    return this.http.get(`${environment.endpoint_url}` + '/users').pipe(catchError(this.formatErrors))
+    return this.apiService.get('/users').pipe(catchError(this.formatErrors))
   }
+
+//   createUser()
   
 }
