@@ -21,6 +21,7 @@ const MemberManagemenRoutes: Routes = [
   { path: 'new-member',  component: NewMemberComponent }
 ];
 
+
 @NgModule({
   declarations: [
     MemberTableComponent,
