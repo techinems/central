@@ -57,7 +57,7 @@ export class MemberTableComponent implements OnInit {
 
   getUser(userId){
     console.log('GET USER', userId);
-    this.router.navigate(['/member-info']);
+    this.router.navigate(['/member-info'],{ queryParams: { userId: userId}});
   }
 
   createUser(){
