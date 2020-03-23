@@ -27,19 +27,26 @@ export class AppComponent {
   }  
 
   logOut(){
-    this.cookieService.deleteAll();
-    this.data.toggleNavVisibility('hidden')
+    console.log('logging user out');
+    this.cookieService.set('isLoggedIn','false');
+    this.data.toggleNavVisibility('hidden');
     this.router.navigate(['/']);
   }
 
   ngOnInit(){
     this.data.currentFoo.subscribe(message =>this.message = message);
     this.data.currentNavVisibility.subscribe(status =>this.navVisibility = status);
-
-    if(this.cookieService.get('isLoggedIn')){
-      console.log('user_logged in');
+    
+    let login_status = this.cookieService.get('isLoggedIn')
+    console.log("is user logged in : ", login_status);
+    
+    if(this.cookieService.get('isLoggedIn') === 'true'){
       this.data.toggleNavVisibility('visible')
- 
+    } 
+
+    if(this.cookieService.get('isLoggedIn') === 'false'){
+      this.data.toggleNavVisibility('hidden')
+      this.router.navigate(['/']);
     }
     console.log("GOOD MORNING");
 

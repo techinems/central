@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MemberManagementServiceService } from '../../services/member-management-service.service';
+import { Observable, from } from 'rxjs';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'central-member-table',
@@ -7,6 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./member-table.component.scss']
 })
 export class MemberTableComponent implements OnInit {
+
+  members: Observable<any[]>;
 
   users: any = [
       {
@@ -59,9 +64,16 @@ export class MemberTableComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private memberManageService: MemberManagementServiceService,
   ) {}
 
-  ngOnInit() {
+  ngOnInit () {
+    this.memberManageService.getUser().subscribe((data) => {
+      this.members = data;
+      console.log(this.members);
+    });
+    
+    
   }
 
 }

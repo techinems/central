@@ -23,14 +23,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor='let user of users'>
-      <td>{{user.userId}}</td>
-      <td>{{user.firstName}}</td>
-      <td>{{user.lastName}}</td>
-      <td>{{user.phoneNumber}}</td>
-      <td>{{user.emailAddress}}</td>
+    <tr *ngFor='let member of members'>
+      <td>{{member.id}}</td>
+      <td>{{member.first_name}}</td>
+      <td>{{member.last_name}}</td>
+      <td>{{member.phone}}</td>
+      <td>{{member.email}}</td>
       <td>
-        <button (click)='getUser(user.userId)' class="btn btn-primary">Edit</button>
+        <button (click)='getUser(member.id)' class="btn btn-primary">Edit</button>
       </td>
     </tr>
   </tbody>

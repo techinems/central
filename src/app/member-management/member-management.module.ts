@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -36,7 +37,8 @@ const MemberManagemenRoutes: Routes = [
     RouterModule.forRoot(MemberManagemenRoutes)
   ],
   providers:[
-    MemberManagementServiceService
+    MemberManagementServiceService,
+    HttpClientModule
   ],
   exports: [
     MemberTableComponent,
