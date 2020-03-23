@@ -1,10 +1,21 @@
 import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
+import { Observable ,  throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class MemberManagementServiceService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+  ) { }
+
+  private formatErrors(error: any) {
+    return  throwError(error.error);
+  }  
 
   getMockPeople() :any {
     return [
@@ -205,5 +216,8 @@ export class MemberManagementServiceService {
     ]
   }  
 
+  getUser(): Observable<any>{
+    return this.http.get(`${environment.endpoint_url}` + '/users').pipe(catchError(this.formatErrors))
+  }
   
 }

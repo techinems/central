@@ -38,16 +38,13 @@ export class AppComponent {
     this.data.currentNavVisibility.subscribe(status =>this.navVisibility = status);
     
     let login_status = this.cookieService.get('isLoggedIn')
-    console.log("is user logged in", login_status);
-    console.log(login_status);
+    console.log("is user logged in : ", login_status);
     
     if(this.cookieService.get('isLoggedIn') === 'true'){
-      console.log('user_logged in');
       this.data.toggleNavVisibility('visible')
- 
     } 
+
     if(this.cookieService.get('isLoggedIn') === 'false'){
-      console.log('not user_logged in');
       this.data.toggleNavVisibility('hidden')
       this.router.navigate(['/']);
     }

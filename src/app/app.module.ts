@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { CoreService } from './services/core-service.service';
 import { MemberManagementServiceService } from './services/member-management-service.service';
@@ -32,10 +33,12 @@ import { LoginComponent } from './login/login.component';
     BrowserModule,
     AppRoutingModule,
     MemberManagementModule,
+    HttpClientModule,
   ],
   providers: [
     CoreService,
     MemberManagementServiceService,
+    HttpClientModule,
   ],
   bootstrap: [AppComponent]
 })
