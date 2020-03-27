@@ -217,10 +217,13 @@ export class MemberManagementServiceService {
     ]
   }  
 
-  getUser(): Observable<any>{
-    return this.apiService.get('/users').pipe(catchError(this.formatErrors))
+  getUser(userId=''): Observable<any>{
+    return this.apiService.get('/users/'+userId).pipe(catchError(this.formatErrors))
   }
 
-//   createUser()
+
+  createUser(userInfo): Observable<any>{
+      return this.apiService.post('/users',userInfo).pipe(catchError(this.formatErrors))
+  }
   
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray, NgForm } from '@angular/forms'
 import { ToastConfig, Toaster, ToastType } from "ngx-toast-notifications";
+import { MemberManagementServiceService } from '../../services/member-management-service.service';
 
 @Component({
   selector: 'central-new-member',
@@ -9,18 +11,18 @@ import { ToastConfig, Toaster, ToastType } from "ngx-toast-notifications";
 })
 export class NewMemberComponent implements OnInit {
   profileForm = this.fb.group({
-    email : [''],
     firstName: ['', Validators.required],
     lastName: [''],
+    email : [''],
+    password : [''], 
+    dob : [''],
+    phone : [''],
     address: this.fb.group({
       street: [''],
       city: [''],
       state: [''],
       zip: ['']
     }),
-    aliases: this.fb.array([
-      this.fb.control('')
-    ])
   });
 
   get aliases() {
@@ -30,6 +32,8 @@ export class NewMemberComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toaster: Toaster,
+    private router: Router,
+    private memberManageService: MemberManagementServiceService,
   ) { }
 
 
@@ -52,14 +56,30 @@ export class NewMemberComponent implements OnInit {
 
   onSubmit() {
     // TODO: Use EventEmitter with form value
-    console.log(this.profileForm.value);
+    let formValue = this.profileForm.value
+    console.log(formValue['firstName']);
+    let userInfo = {
+      "first_name" : formValue['firstName'],
+      "last_name" : formValue['lastName'],
+      "password" : formValue['password'],
+      "email" : formValue['email'],
+      "dob" : formValue['dob'],      
+      "phone" : formValue['phone']	      
+    }
+    this.memberManageService.createUser(userInfo).subscribe(
+      (result) =>{
+        console.log(result);
+        this.showToast(result['msg'])
+        this.router.navigate(['/member-management']);
+        
+      })
   }
 
-  showToast() {
+  showToast(message) {
     const type = 'success';
     this.toaster.open({
       position: 'top-center',
-      text: 'some-message',
+      text: message,
       caption: type + ' notification',
       type: type,
     });

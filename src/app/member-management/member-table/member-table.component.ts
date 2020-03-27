@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MemberManagementServiceService } from '../../services/member-management-service.service';
 import { Observable, from } from 'rxjs';
-import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'central-member-table',
@@ -50,10 +49,15 @@ export class MemberTableComponent implements OnInit {
         "emailAddress": "jone.mac@learningcontainer.com"
       }
     ]
+    
+  constructor(
+    private router: Router,
+    private memberManageService: MemberManagementServiceService,
+  ) {}
 
   getUser(userId){
     console.log('GET USER', userId);
-    this.router.navigate(['/member-info']);
+    this.router.navigate(['/member-info'],{ queryParams: { userId: userId}});
   }
 
   createUser(){
@@ -62,10 +66,7 @@ export class MemberTableComponent implements OnInit {
     
   }
 
-  constructor(
-    private router: Router,
-    private memberManageService: MemberManagementServiceService,
-  ) {}
+
 
   ngOnInit () {
     this.memberManageService.getUser().subscribe((data) => {

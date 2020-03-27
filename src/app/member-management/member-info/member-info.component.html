@@ -1,12 +1,13 @@
 <h1>Member Basic Info</h1>
 <hr>
+<!-- {{currentUser | json}} -->
 
 <div class="row">
     <div class="col-4 text-right">
         <h5>Name : </h5>
     </div>
     <div class="col-8">
-        <h5>Foo Bar</h5>
+        <h5>{{currentUser.first_name}} {{currentUser.last_name}}</h5>
     </div>
 </div>
 
@@ -15,7 +16,7 @@
         <h5>Email : </h5>
     </div>
     <div class="col-8">
-        <h5>foo.bar@foo.bar</h5>
+        <h5>{{currentUser.email}}</h5>
     </div>
 </div>
 
@@ -24,7 +25,7 @@
         <h5>Phone Number : </h5>
     </div>
     <div class="col-8">
-        <h5>852-857-2957</h5>
+        <h5>{{currentUser.phone}}</h5>
     </div>
 </div>
 
@@ -35,7 +36,7 @@
 <h1>Member Permissions</h1>
 <hr>
 
-<!-- <ng-select items={{items}} ></ng-select> -->
+
 <ng-select [items]="people"
            bindLabel="name"
            autofocus

@@ -11,6 +11,13 @@ export class ApiService {
     private http: HttpClient
   ) {}
 
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': 'my-auth-token'
+    })
+  };
+
   private formatErrors(error: any) {
     return  throwError(error.error);
   }
@@ -28,9 +35,12 @@ export class ApiService {
   }
 
   post(path: string, body: Object = {}): Observable<any> {
+    console.log(JSON.stringify(body));
+    
     return this.http.post(
       `${environment.endpoint_url}${path}`,
-      JSON.stringify(body)
+      JSON.stringify(body),
+      this.httpOptions
     ).pipe(catchError(this.formatErrors));
   }
 
