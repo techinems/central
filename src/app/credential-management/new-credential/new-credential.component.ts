@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray, NgForm } from '@angular/forms'
 import { ToastConfig, Toaster, ToastType } from "ngx-toast-notifications";
+import { CredentialManagementService } from '../../services/credential-management.service';
+import { Observable, from } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'central-new-credential',
@@ -8,65 +11,97 @@ import { ToastConfig, Toaster, ToastType } from "ngx-toast-notifications";
   styleUrls: ['./new-credential.component.scss']
 })
 export class NewCredentialComponent implements OnInit {
+  credentials: Observable<any[]>;
+  selectedCredentialId = '0';
+
   profileForm = this.fb.group({
-    email : [''],
-    firstName: ['', Validators.required],
-    lastName: [''],
-    address: this.fb.group({
-      street: [''],
-      city: [''],
-      state: [''],
-      zip: ['']
-    }),
-    aliases: this.fb.array([
+    name : [''],
+    abbr: [''],
+    major_cred: [''],
+    parent_cred: [''],
+    active : 1,
+    checkListItems: this.fb.array([
       this.fb.control('')
     ])
+
   });
 
-  get aliases() {
-    return this.profileForm.get('aliases') as FormArray;
+
+  
+  
+  get checkListItems() {
+    return this.profileForm.get('checkListItems') as FormArray;
   }
 
   constructor(
     private fb: FormBuilder,
     private toaster: Toaster,
+    private router: Router,
+    private credentialManagementService: CredentialManagementService,
   ) { }
 
 
   updateProfile() {
     this.profileForm.patchValue({
-      firstName: 'Nancy',
-      address: {
-        street: '123 Drew Street'
-      }
+      name: "First",
+      abbr: "F",
+      major_cred : 0,
+      parent_cred : 0,
+      active : 1,
+      created_by: 0,
+      updated_by: 0
     });
   }
 
-  addAlias() {
-    this.aliases.push(this.fb.control(''));
+  addItem() {
+    this.checkListItems.push(this.fb.control(''));
   }
 
-  removeAlias(rowIndex:number){
-    this.aliases.removeAt(rowIndex);
+  removeItem(rowIndex:number){
+    this.checkListItems.removeAt(rowIndex);
   }  
 
   onSubmit() {
     // TODO: Use EventEmitter with form value
-    console.log(this.profileForm.value);
+    let formValue = this.profileForm.value
+    let credentialInfo = {
+      "name" : formValue['name'],
+      "abbr" : formValue['abbr'],
+      "major_cred" : formValue['major_cred'],
+      "parent_cred" : formValue['parent_cred'],
+      "active" : 1,
+      "created_by": 0,
+      "updated_by": 0    
+    }
+    console.log(credentialInfo);
+    this.credentialManagementService.createCredential(credentialInfo).subscribe(
+      (result) => {
+        console.log(result);
+        this.showToast(result['msg'])
+        this.router.navigate(['/credential-management']);        
+      }
+    )
+    
+    
   }
 
-  showToast() {
+  showToast(message) {
     const type = 'success';
     this.toaster.open({
       position: 'top-center',
-      text: 'some-message',
+      text: message,
       caption: type + ' notification',
       type: type,
     });
-  }  
+  } 
 
   ngOnInit(){
-
+    this.credentialManagementService.getCredential().subscribe(
+      (creds) => {
+        this.credentials = creds;
+      }
+    );
+    console.log(this.credentials)
   }
 
 }

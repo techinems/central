@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray, NgForm } from '@angular/forms'
 import { ToastConfig, Toaster, ToastType } from "ngx-toast-notifications";
 import { MemberManagementServiceService } from '../../services/member-management-service.service';
@@ -11,7 +12,7 @@ import { MemberManagementServiceService } from '../../services/member-management
 export class NewMemberComponent implements OnInit {
   profileForm = this.fb.group({
     firstName: ['', Validators.required],
-    lastName: [''],    
+    lastName: [''],
     email : [''],
     password : [''], 
     dob : [''],
@@ -31,6 +32,7 @@ export class NewMemberComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toaster: Toaster,
+    private router: Router,
     private memberManageService: MemberManagementServiceService,
   ) { }
 
@@ -67,15 +69,17 @@ export class NewMemberComponent implements OnInit {
     this.memberManageService.createUser(userInfo).subscribe(
       (result) =>{
         console.log(result);
+        this.showToast(result['msg'])
+        this.router.navigate(['/member-management']);
         
       })
   }
 
-  showToast() {
+  showToast(message) {
     const type = 'success';
     this.toaster.open({
       position: 'top-center',
-      text: 'some-message',
+      text: message,
       caption: type + ' notification',
       type: type,
     });

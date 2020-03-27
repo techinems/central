@@ -37,8 +37,6 @@ export class MemberInfoComponent implements OnInit {
       this.currentUser = user;
       console.log(this.currentUser);
     });
-    
-
   
   }
 
