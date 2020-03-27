@@ -30,6 +30,7 @@ export class MemberInfoComponent implements OnInit {
 
   ngOnInit() {
     this.people = this.memberManageService.getMockPeople();
+    
     let userId = this.route.snapshot.queryParamMap.get('userId')
 
     this.memberManageService.getUser(userId).subscribe((user) =>{
