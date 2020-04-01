@@ -63,7 +63,9 @@ export class NewCredentialComponent implements OnInit {
 
   onSubmit() {
     // TODO: Use EventEmitter with form value
+    
     let formValue = this.profileForm.value
+    console.log(formValue);
     let credentialInfo = {
       "name" : formValue['name'],
       "abbr" : formValue['abbr'],
