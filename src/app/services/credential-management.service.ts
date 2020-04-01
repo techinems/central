@@ -20,13 +20,17 @@ export class CredentialManagementService {
     private apiService: ApiService,
   ){ }
 
-  getCredential(credentialID=''): Observable<any>{
-    return this.apiService.get('/credentials/'+credentialID).pipe(catchError(this.formatErrors))
+  getCredential(credentialId=''): Observable<any>{
+    return this.apiService.get('/credentials/'+credentialId).pipe(catchError(this.formatErrors))
   }
 
 
   createCredential(credentialInfo): Observable<any>{
       return this.apiService.post('/credentials/',credentialInfo).pipe(catchError(this.formatErrors))
-  }  
+  }
+  
+  createChecklistItem(itemInfo): Observable<any>{
+    return this.apiService.post('/credentials/checklistItems/',itemInfo).pipe(catchError(this.formatErrors))
+}
 
 }

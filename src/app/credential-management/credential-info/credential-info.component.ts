@@ -17,17 +17,39 @@ export class CredentialInfoComponent implements OnInit {
     "major_cred" : 'Loading',
     "parent_cred" : 'Loading',
     "created_by" : 'Loading',
-    "created" : 'Loading'
+    "created" : 'Loading',
+    "id" : '0'
   };
+
+  currentChecklist = 'SOME ITEM'
 
   constructor(
     private credentialManagementService: CredentialManagementService,
     private route: ActivatedRoute
   ) { }
 
+  onKey(event: any) { // without type info
+    console.log(event);
+    this.currentChecklist = event;
+  }
+
+  createCheckListItem(){
+    let itemInfo = {
+      'credential_id' : this.currentCredential.id,
+      'text' : this.currentChecklist,
+      'created_by' : 0
+    }
+    console.log(itemInfo);
+    
+    this.credentialManagementService.createChecklistItem(itemInfo).subscribe((result)=>{
+      console.log(result);
+    })
+  }
+
   ngOnInit() {
 
-    let credentialId = this.route.snapshot.queryParamMap.get('credentialId')
+    let credentialId = this.route.snapshot.queryParamMap.get('credentialId');
+    
 
     this.credentialManagementService.getCredential(credentialId).subscribe((credential) =>{
       this.currentCredential = credential;
