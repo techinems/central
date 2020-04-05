@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+import { Observable } from 'rxjs';
 import { CredentialManagementService } from '../../services/credential-management.service';
 
 @Component({
@@ -21,7 +21,10 @@ export class CredentialInfoComponent implements OnInit {
     "id" : '0'
   };
 
-  currentChecklist = 'SOME ITEM'
+  currentChecklistItem = 'SOME ITEM'
+  
+  currentCheckListItems:Observable<any[]>;
+  
 
   constructor(
     private credentialManagementService: CredentialManagementService,
@@ -30,19 +33,20 @@ export class CredentialInfoComponent implements OnInit {
 
   onKey(event: any) { // without type info
     console.log(event);
-    this.currentChecklist = event;
+    this.currentChecklistItem = event;
   }
 
   createCheckListItem(){
     let itemInfo = {
       'credential_id' : this.currentCredential.id,
-      'text' : this.currentChecklist,
+      'text' : this.currentChecklistItem,
       'created_by' : 0
     }
     console.log(itemInfo);
     
     this.credentialManagementService.createChecklistItem(itemInfo).subscribe((result)=>{
       console.log(result);
+      window.location.reload();
     })
   }
 
@@ -53,6 +57,7 @@ export class CredentialInfoComponent implements OnInit {
 
     this.credentialManagementService.getCredential(credentialId).subscribe((credential) =>{
       this.currentCredential = credential;
+      this.currentCheckListItems = credential.checklist_items;
       console.log(this.currentCredential);
     });    
   }
