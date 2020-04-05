@@ -19,11 +19,22 @@ export class TrainingManagementService {
     private apiService: ApiService,
   ){ }
 
-  getCurrentCredentials(userId): Observable<any>{
+  getAllCredentialStatus(userId): Observable<any>{
     return 
   }
 
-  startRoute(request_body): Observable<any>{
+  getDetailedProgressInfo(request_body): Observable<any>{
+    // progress/start/
+    return 
+  }  
+
+  startProgress(request_body): Observable<any>{
+    return 
+  }
+
+
+
+  checkOffItem(request_body): Observable<any>{
     return 
   }
 

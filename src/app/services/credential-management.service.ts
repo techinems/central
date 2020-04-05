@@ -24,7 +24,6 @@ export class CredentialManagementService {
     return this.apiService.get('/credentials/'+credentialId).pipe(catchError(this.formatErrors))
   }
 
-
   createCredential(credentialInfo): Observable<any>{
       return this.apiService.post('/credentials/',credentialInfo).pipe(catchError(this.formatErrors))
   }
