@@ -48,10 +48,7 @@ export class AppComponent {
       this.data.toggleNavVisibility('hidden')
       this.router.navigate(['/']);
     }
-    console.log("GOOD MORNING");
 
-
-    
   }
 
 }

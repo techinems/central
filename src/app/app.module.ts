@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CoreService } from './services/core-service.service';
 import { ApiService } from './services/api.service';
@@ -12,6 +13,7 @@ import { MemberManagementModule } from './member-management/member-management.mo
 import { CredentialManagementModule } from './credential-management/credential-management.module';
 import { PromotionManagementModule } from './promotion-management/promotion-management.module';
 import { TrainingProgressManagementModule } from './training-progress-management/training-progress-management.module';
+import { PersonalProfileModule } from './personal-profile/personal-profile.module';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -21,6 +23,7 @@ import { TrainingChecklistComponent } from './training-checklist/training-checkl
 import { TrainingEvaluationComponent } from './training-evaluation/training-evaluation.component';
 import { RedirectCardComponent } from './redirect-card/redirect-card.component';
 import { LoginComponent } from './login/login.component';
+import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { LoginComponent } from './login/login.component';
     CredentialManagementModule,
     PromotionManagementModule,
     TrainingProgressManagementModule,
+    PersonalProfileModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,    
   ],
   providers: [
     CoreService,

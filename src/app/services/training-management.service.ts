@@ -19,8 +19,12 @@ export class TrainingManagementService {
     private apiService: ApiService,
   ){ }
 
-  getAllCredentialStatus(userId): Observable<any>{
+  getAllTrainingProgress(): Observable<any>{
     return 
+  }
+
+  getAllCredentialStatusByUser(userId): Observable<any>{
+    return this.apiService.get('/progress/all/'+userId).pipe(catchError(this.formatErrors))
   }
 
   getDetailedProgressInfo(request_body): Observable<any>{

@@ -225,5 +225,9 @@ export class MemberManagementServiceService {
   createUser(userInfo): Observable<any>{
       return this.apiService.post('/users',userInfo).pipe(catchError(this.formatErrors))
   }
+
+  login(userInfo): Observable<any>{
+    return this.apiService.post('/users/sessions',userInfo).pipe(catchError(this.formatErrors))
+  }
   
 }
