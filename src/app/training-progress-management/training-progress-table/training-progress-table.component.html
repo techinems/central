@@ -1,1 +1,22 @@
-<p>training-progress-table works!</p>
+<h1>Training Progress Management</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Member Name</th>
+      <th scope="col">Credential Name </th>
+      <th scope="col">Status</th>
+      <th scope="col">Option</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor='let progress of progresses'>
+      <td>{{progress.first_name}} {{progress.last_name}}</td>
+      <td>{{progress.credential_name}}</td>
+      <td>{{progress.label}}</td>
+      <td>
+        <button (click)="getProgressDetail(progress.user_id, progress.credential_id)" class="btn btn-primary">Detail</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

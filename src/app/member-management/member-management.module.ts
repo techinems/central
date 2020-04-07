@@ -14,13 +14,11 @@ import { NewMemberComponent } from './new-member/new-member.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastNotificationsModule } from "ngx-toast-notifications";
-import { ProfileComponent } from './profile/profile.component';
 
 const MemberManagemenRoutes: Routes = [
   { path: 'member-management',  component: MemberTableComponent },
   { path: 'member-info',  component: MemberInfoComponent },
   { path: 'new-member',  component: NewMemberComponent },
-  { path: 'member-profile',  component: ProfileComponent }
 ];
 
 
@@ -29,7 +27,6 @@ const MemberManagemenRoutes: Routes = [
     MemberTableComponent,
     MemberInfoComponent,
     NewMemberComponent,
-    ProfileComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -9,6 +9,7 @@ import { PromotionTableComponent } from './promotion-table/promotion-table.compo
 import { PromotionInfoComponent } from './promotion-info/promotion-info.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UiSwitchModule } from 'ngx-toggle-switch';
 import { ToastNotificationsModule } from "ngx-toast-notifications";
 
 const PromotionManagemenRoutes: Routes = [
@@ -23,6 +24,7 @@ const PromotionManagemenRoutes: Routes = [
   ],
   imports: [
     BrowserAnimationsModule,
+    UiSwitchModule,
     ToastNotificationsModule,    
     CommonModule,
     RouterModule.forRoot(PromotionManagemenRoutes)    

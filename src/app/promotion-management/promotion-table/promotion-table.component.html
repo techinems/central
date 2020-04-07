@@ -1,1 +1,24 @@
-<p>promotion-table works!</p>
+<h1>Promotions</h1>
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Promotion ID</th>
+        <th scope="col">Member</th>
+        <th scope="col">Credential</th>
+        <th scope="col">Created At</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let promotion of promotions'>
+        <td>{{promotion.id}}</td>
+        <td>{{promotion.user_id}}</td>
+        <td>{{promotion.credential_id}}</td>
+        <td>{{promotion.created}}</td>
+        <td>
+          <button (click)='getPromotion(promotion.id)' class="btn btn-primary">Detail</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>

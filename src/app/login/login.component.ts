@@ -41,6 +41,8 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/night-crews']);
         this.cookieService.set('isLoggedIn','true')
         this.cookieService.set('user_id',result['result']['id'])
+        this.cookieService.set('first_name',result['result']['first_name'])
+        this.cookieService.set('last_name',result['result']['last_name'])
       } else {
         this.showToast(result['msg'], 'warning')
       }
