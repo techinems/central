@@ -21,6 +21,7 @@ export class PromotionInfoComponent implements OnInit {
   current_user_id: any;
   current_promotion: any;
   current_promotion_detail: any;
+  current_promotion_status: true;
 
   current_promotion_votes: Observable<any[]>;
 
@@ -53,7 +54,7 @@ export class PromotionInfoComponent implements OnInit {
     ).subscribe((result) => {
       console.log(result);
       this.showToast(result['msg'], 'success')
-      window.location.reload();
+      setTimeout(() => {window.location.reload();},2000);
     })
   }
 
@@ -74,7 +75,8 @@ export class PromotionInfoComponent implements OnInit {
       comments,
     ).subscribe((result)=>{
       console.log(result);
-      
+      this.showToast(result['msg'], 'success')
+      setTimeout(() => {window.location.reload();},2000);
     })
   }
 
@@ -87,6 +89,7 @@ export class PromotionInfoComponent implements OnInit {
       this.current_promotion_member_id = data['user_id']
       this.current_credential_id = data['credential_id']
       this.current_promotion_detail = data['detail']
+      this.current_promotion_status = data['approved']
     })
   }
 

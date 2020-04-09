@@ -30,6 +30,6 @@
   <button style="display: block;" type="button" (click)="vote()" class="btn btn-primary">Add Item</button>
 </div>
 
-<div>
+<div *ngIf="current_promotion_status != true">
   <button style="display: block;" type="button" (click)="processPromotionRequest(true, 'Approved')" class="btn btn-primary">Approve</button>
 </div>

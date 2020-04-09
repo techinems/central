@@ -38,7 +38,7 @@ export class TrainingProgressInfoComponent implements OnInit {
     ).subscribe((data)=>{
       console.log(data);
       this.showToast(data['msg'],'success')
-      window.location.reload();
+      setTimeout(() => {window.location.reload();},2000);
     })
   }
 
@@ -60,7 +60,7 @@ export class TrainingProgressInfoComponent implements OnInit {
     ).subscribe((data)=>{
       console.log(data);
       this.showToast(data['msg'],'success')
-      window.location.reload();
+      setTimeout(() => {window.location.reload();},2000);
     })
   }
   

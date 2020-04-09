@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CoreService } from '../services/core-service.service';
 import { CookieService } from 'ngx-cookie-service';
+import { Md5 } from 'ts-md5';
 
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray, NgForm } from '@angular/forms'
 import { ToastConfig, Toaster, ToastType } from "ngx-toast-notifications";
@@ -32,6 +33,9 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
+    
+    this.profileForm.value['password'] = Md5.hashStr(this.profileForm.value['password'])
+  
     this.memberManageService.login(this.profileForm.value).subscribe((result) => {
       console.log('log in result', result);
       
