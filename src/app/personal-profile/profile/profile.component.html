@@ -1,0 +1,41 @@
+<h1>
+Profile for {{user_name}}
+</h1>
+
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Item ID</th>
+        <th scope="col">Item Name</th>
+        <th scope="col">Status</th>
+        <th scope="col">Option</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let credential of current_status'>
+        <td>{{credential.credential_id}}</td>
+        <td>{{credential.credential_name}}</td>
+        <td>{{credential.label}}</td>
+        <td>
+
+          <div *ngIf="credential.label === 'Compeleted'">
+            <button class="btn btn-success">Compeleted</button>
+          </div>
+          <div *ngIf="credential.label === 'Not start'">
+            <button (click)='startTraining(credential.user_id, credential.credential_id)'  class="btn btn-primary">Start Now</button>
+          </div>
+          <div *ngIf="credential.label === 'In Progress'">
+            <button (click)='getProgressDetail(credential.user_id, credential.credential_id)'  class="btn btn-warning">View Progress</button>
+          </div>
+          <div *ngIf="credential.label === 'started'">
+            <button (click)='getProgressDetail(credential.user_id, credential.credential_id)'  class="btn btn-warning">Clear for call</button>
+          </div>              
+          <div *ngIf="credential.label === 'Not available'">
+            <button class="btn btn-secondary">Not available</button>
+          </div>          
+          <!-- <button (click)='getCredential(credential.id)' class="btn btn-success">Compeleted</button> -->
+        </td>        
+      </tr>
+    </tbody>
+  </table>

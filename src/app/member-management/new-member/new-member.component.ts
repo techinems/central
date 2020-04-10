@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray, NgForm } from '@angular/forms'
 import { ToastConfig, Toaster, ToastType } from "ngx-toast-notifications";
 import { MemberManagementServiceService } from '../../services/member-management-service.service';
+import { Md5 } from 'ts-md5';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'central-new-member',
@@ -10,6 +12,8 @@ import { MemberManagementServiceService } from '../../services/member-management
   styleUrls: ['./new-member.component.scss']
 })
 export class NewMemberComponent implements OnInit {
+  permissions: Observable<any[]>;
+
   profileForm = this.fb.group({
     firstName: ['', Validators.required],
     lastName: [''],
@@ -61,7 +65,7 @@ export class NewMemberComponent implements OnInit {
     let userInfo = {
       "first_name" : formValue['firstName'],
       "last_name" : formValue['lastName'],
-      "password" : formValue['password'],
+      "password" : Md5.hashStr(formValue['password']),
       "email" : formValue['email'],
       "dob" : formValue['dob'],      
       "phone" : formValue['phone']	      
@@ -86,7 +90,11 @@ export class NewMemberComponent implements OnInit {
   }  
 
   ngOnInit(){
-
+    this.memberManageService.getPermissions().subscribe((permissions) => {
+      this.permissions = permissions;
+      console.log(this.permissions);
+      
+    })
   }
 
 }

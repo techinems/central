@@ -36,12 +36,37 @@
 <h1>Member Permissions</h1>
 <hr>
 
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Permission ID</th>
+            <th scope="col">Permission Name</th>
+            <th scope="col">Permission Status</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor='let permission of currentUserPermissions'>
+            <td>{{permission.permission_id}}</td>
+            <td>{{permission.name}}</td>
+            <td>
+                {{permission.active}}
+            </td>
+            <td>
+                <div *ngIf="permission.active === true">
+                    <button (click)='togglePermission(permission.permission_id, false)' class="btn btn-danger">Disable</button>
+                </div>
+                <div *ngIf="permission.active === false">
+                    <button (click)='togglePermission(permission.permission_id, true)' class="btn btn-success">Enable</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
-<ng-select [items]="people"
-           bindLabel="name"
-           autofocus
-           bindValue="id"
-           [(ngModel)]="selectedPersonId">
+<br />Selected: {{selectedPermission}}
+
+<ng-select [items]="permissions" bindLabel="name" autofocus bindValue="id" [(ngModel)]="selectedPermission">
 </ng-select>
 
-<br/>Selected: {{selectedPersonId}}
+<button (click)='addPermission()' class="btn btn-primary">Add</button>

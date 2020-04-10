@@ -1,0 +1,36 @@
+<h1>Checklist Item</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Item ID</th>
+      <th scope="col">Item Name</th>
+      <th scope="col">Status</th>
+      <th scope="col">Updated By</th>
+      <th scope="col">Updated At</th>
+      <th *ngIf="is_mentor" scope="col">Option</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor='let item of currrent_progress'>
+      <td>{{item.id}}</td>
+      <td>{{item.text}}</td>
+      <td>{{item.isFinished}}</td>
+      <td>{{item.updated_by}}</td>
+      <td>{{item.updated}}</td>
+      <td *ngIf="is_mentor" >
+        <div *ngIf="item.isFinished === true">
+          <button (click)='checkOffItem(item.id, false)' class="btn btn-danger">Undo</button>
+        </div>
+        <div *ngIf="item.isFinished === false">
+          <button (click)='checkOffItem(item.id, true)' class="btn btn-success">Check-off</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="is_clear">
+  <button (click)='requestForPromotion()' class="btn btn-success">Request for promotion</button>
+</div>
+

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MemberManagementServiceService } from '../../services/member-management-service.service';
 import { Observable, from } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { ToastConfig, Toaster, ToastType } from "ngx-toast-notifications";
 
 
 @Component({
@@ -11,8 +13,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MemberInfoComponent implements OnInit {
 
-  people: Observable<any[]>;
-  selectedPersonId = '5a15b13c36e7a7f00cf0d7cb';
+  permissions: Observable<any[]>;
+  selectedPermission: any;
+
+  currentUserPermissions: Observable<any[]>;
+  current_operator_id: any;
+  current_user_id: any;
+
 
   currentUser = {
     "first_name" : 'Loading',
@@ -21,23 +28,77 @@ export class MemberInfoComponent implements OnInit {
     "Phone Number" : 'Loading',
   };
 
-
-
   constructor(
     private memberManageService: MemberManagementServiceService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cookieService: CookieService,
+    private toaster: Toaster,
   ) { }
 
-  ngOnInit() {
-    this.people = this.memberManageService.getMockPeople();
-    
-    let userId = this.route.snapshot.queryParamMap.get('userId')
+  addPermission() {
+    this.memberManageService.assignPermissionToUser(this.selectedPermission, this.current_user_id, this.current_operator_id).subscribe((data) => {
+      console.log(data);
+      if (data['isSuccess']) {
+        this.showToast(data['msg'],'success')
+        setTimeout(() => {window.location.reload();},2000);        
+      } else {
+        this.showToast(data['msg'],'warning')
+        setTimeout(() => {window.location.reload();},2000);
+      }
+    })
+  }
 
-    this.memberManageService.getUser(userId).subscribe((user) =>{
+  togglePermission(permission_id, active){
+    this.memberManageService.togglePermission(
+      permission_id, 
+      this.current_user_id, 
+      this.current_operator_id, 
+      active
+    ).subscribe((data)=>{
+      console.log(data);
+      if (data['isSuccess']) {
+        this.showToast(data['msg'],'success')
+        setTimeout(() => {window.location.reload();},2000);        
+      } else {
+        this.showToast(data['msg'],'warning')
+        setTimeout(() => {window.location.reload();},2000);                
+      }
+    },(error)=>{
+      console.log(error);
+    })
+
+  }
+
+  showToast(message, level) {
+    const type = level;
+    this.toaster.open({
+      position: 'top-center',
+      text: message,
+      caption: type + ' notification',
+      type: type,
+    });
+  }
+
+  ngOnInit() {
+    this.current_user_id = this.route.snapshot.queryParamMap.get('userId')
+    this.current_operator_id = this.cookieService.get('user_id');
+    this.memberManageService.getUser(this.current_user_id).subscribe((user) =>{
       this.currentUser = user;
       console.log(this.currentUser);
     });
   
+    this.memberManageService.getPermissions().subscribe((permissions) => {
+      this.permissions = permissions;
+      console.log(this.permissions);
+      
+    })
+
+    this.memberManageService.getUserPermissions(this.current_user_id).subscribe((permissions) =>{
+      this.currentUserPermissions = permissions;
+      console.log(this.currentUserPermissions);
+      
+    })
+
   }
 
 }

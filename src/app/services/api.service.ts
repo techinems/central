@@ -30,7 +30,8 @@ export class ApiService {
   put(path: string, body: Object = {}): Observable<any> {
     return this.http.put(
       `${environment.endpoint_url}${path}`,
-      JSON.stringify(body)
+      JSON.stringify(body),
+      this.httpOptions
     ).pipe(catchError(this.formatErrors));
   }
 

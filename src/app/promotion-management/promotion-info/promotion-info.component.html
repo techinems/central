@@ -1,1 +1,35 @@
-<p>promotion-info works!</p>
+<h1>Promotion Request Detail</h1>
+
+{{ current_promotion | json }}
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Member ID</th>
+      <th scope="col">Vote</th>
+      <th scope="col">Comment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor='let vote of current_promotion_detail'>
+      <td>{{vote.user_id}}</td>
+      <td>{{vote.vote}}</td>
+      <td>{{vote.comments}}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<div>
+  <input type="text" (keyup)="onKey($event.target.value)" value="{{ currentChecklist }}" class="form-control">
+  <div style="margin-left: 5px;" class="row">
+    Decision <ui-switch style="margin-left: 5px;" [(ngModel)]="current_decision"></ui-switch>
+  </div>
+  
+  
+  <button style="display: block;" type="button" (click)="vote()" class="btn btn-primary">Add Item</button>
+</div>
+
+<div *ngIf="current_promotion_status != true">
+  <button style="display: block;" type="button" (click)="processPromotionRequest(true, 'Approved')" class="btn btn-primary">Approve</button>
+</div>

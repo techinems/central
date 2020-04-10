@@ -18,7 +18,7 @@ import { ToastNotificationsModule } from "ngx-toast-notifications";
 const MemberManagemenRoutes: Routes = [
   { path: 'member-management',  component: MemberTableComponent },
   { path: 'member-info',  component: MemberInfoComponent },
-  { path: 'new-member',  component: NewMemberComponent }
+  { path: 'new-member',  component: NewMemberComponent },
 ];
 
 

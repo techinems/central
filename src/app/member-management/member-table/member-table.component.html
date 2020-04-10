@@ -35,29 +35,3 @@
     </tr>
   </tbody>
 </table>
-
-<h1>All Members</h1>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">User ID</th>
-      <th scope="col">First Name</th>
-      <th scope="col">Last Name</th>
-      <th scope="col">Phone Number</th>
-      <th scope="col">Email</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor='let user of users'>
-      <td>{{user.userId}}</td>
-      <td>{{user.firstName}}</td>
-      <td>{{user.lastName}}</td>
-      <td>{{user.phoneNumber}}</td>
-      <td>{{user.emailAddress}}</td>
-      <td>
-        <button (click)='getUser(user.userId)' class="btn btn-primary">Edit</button>
-      </td>
-    </tr>
-  </tbody>
-</table>

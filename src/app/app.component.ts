@@ -29,6 +29,7 @@ export class AppComponent {
   logOut(){
     console.log('logging user out');
     this.cookieService.set('isLoggedIn','false');
+    this.cookieService.deleteAll('/');
     this.data.toggleNavVisibility('hidden');
     this.router.navigate(['/']);
   }
@@ -48,10 +49,7 @@ export class AppComponent {
       this.data.toggleNavVisibility('hidden')
       this.router.navigate(['/']);
     }
-    console.log("GOOD MORNING");
 
-
-    
   }
 
 }
