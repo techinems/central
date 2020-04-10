@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormControl, FormArray, NgForm } fr
 import { ToastConfig, Toaster, ToastType } from "ngx-toast-notifications";
 import { MemberManagementServiceService } from '../../services/member-management-service.service';
 import { Md5 } from 'ts-md5';
-import { from } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'central-new-member',
@@ -12,6 +12,8 @@ import { from } from 'rxjs';
   styleUrls: ['./new-member.component.scss']
 })
 export class NewMemberComponent implements OnInit {
+  permissions: Observable<any[]>;
+
   profileForm = this.fb.group({
     firstName: ['', Validators.required],
     lastName: [''],
@@ -88,7 +90,11 @@ export class NewMemberComponent implements OnInit {
   }  
 
   ngOnInit(){
-
+    this.memberManageService.getPermissions().subscribe((permissions) => {
+      this.permissions = permissions;
+      console.log(this.permissions);
+      
+    })
   }
 
 }

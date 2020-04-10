@@ -51,10 +51,15 @@ export class PromotionInfoComponent implements OnInit {
       this.current_comment,
       // this.current_promotion_member_id,
       this.current_user_id,
-    ).subscribe((result) => {
-      console.log(result);
-      this.showToast(result['msg'], 'success')
-      setTimeout(() => {window.location.reload();},2000);
+    ).subscribe((data) => {
+      console.log(data);
+      if (data['isSuccess']) {
+        this.showToast(data['msg'],'success')
+        setTimeout(() => {window.location.reload();},2000);        
+      } else {
+        this.showToast(data['msg'],'warning')
+        setTimeout(() => {window.location.reload();},2000);
+      }
     })
   }
 
@@ -66,7 +71,7 @@ export class PromotionInfoComponent implements OnInit {
       caption: type + ' notification',
       type: type,
     });
-  }     
+  }
 
   processPromotionRequest(decision, comments){
     this.promotionManageService.approvePromotion(

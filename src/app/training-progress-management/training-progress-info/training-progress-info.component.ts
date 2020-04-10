@@ -17,6 +17,7 @@ export class TrainingProgressInfoComponent implements OnInit {
 
   currrent_progress: any;
   current_user_id: any;
+  current_operator_id: any;
   current_credential_id: any;
   is_mentor: boolean = false;
   is_clear: boolean = false;
@@ -33,12 +34,21 @@ export class TrainingProgressInfoComponent implements OnInit {
   checkOffItem(checklist_item_id, active){
     this.trainingManageService.checkOffItem(
       this.current_user_id, 
+      this.current_operator_id,
       checklist_item_id, 
       (active == Boolean('true'))
     ).subscribe((data)=>{
       console.log(data);
-      this.showToast(data['msg'],'success')
-      setTimeout(() => {window.location.reload();},2000);
+      if (data['isSuccess']) {
+        this.showToast(data['msg'],'success')
+        setTimeout(() => {window.location.reload();},2000);        
+      } else {
+        this.showToast(data['msg'],'warning')
+        setTimeout(() => {window.location.reload();},2000);                
+      }
+
+    },(error)=>{
+      console.log(error);
     })
   }
 
@@ -68,6 +78,7 @@ export class TrainingProgressInfoComponent implements OnInit {
     let credential_id = this.route.snapshot.queryParamMap.get('credential_id');
     let user_id = this.route.snapshot.queryParamMap.get('user_id');
     let is_mentor = this.route.snapshot.queryParamMap.get('mentor');
+    this.current_operator_id = this.cookieService.get('user_id');
     this.current_user_id = user_id;
     this.current_credential_id = credential_id;
     this.is_mentor = Boolean(is_mentor == 'true');

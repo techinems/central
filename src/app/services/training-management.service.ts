@@ -28,35 +28,23 @@ export class TrainingManagementService {
   }
 
   getDetailedProgressInfo(user_id, credential_id): Observable<any>{
-    // GET http://localhost:3000/progress/start/1&1    
     return this.apiService.get(`/progress/start/${user_id}&${credential_id}`).pipe(catchError(this.formatErrors))
   }  
 
   startTraining(request_body): Observable<any>{
-    // POST http://localhost:3000/progress
-    // {
-    //   "user_id" : 2,
-    //   "credential_id" :1,
-    //   "trainer": 0,
-    //   "created_by": 0	
-    // }
     return this.apiService.post('/progress',request_body).pipe(catchError(this.formatErrors))
   }
 
-
-
-  checkOffItem(user_id, checklist_item_id, active): Observable<any>{
-    // PUT http://localhost:3000/progress
-    // {
-    //   "user_id" : 1,
-    //   "checklist_item_id" : 1,
-    //   "active" : true
-    // }    
+  checkOffItem(user_id, opreator_id, checklist_item_id, active): Observable<any>{
     let request_info = {
       user_id : Number(user_id),
       checklist_item_id :Number(checklist_item_id),
       active: Boolean(active),
+      updated_by: Number(opreator_id)
     }
+
+    console.log('checkoff item', request_info);
+    
     return this.apiService.put('/progress',request_info).pipe(catchError(this.formatErrors))
   }
 
