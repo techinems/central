@@ -55,10 +55,10 @@ export class PromotionInfoComponent implements OnInit {
       console.log(data);
       if (data['isSuccess']) {
         this.showToast(data['msg'],'success')
-        setTimeout(() => {window.location.reload();},2000);        
+        // setTimeout(() => {window.location.reload();},2000);        
       } else {
         this.showToast(data['msg'],'warning')
-        setTimeout(() => {window.location.reload();},2000);
+        // setTimeout(() => {window.location.reload();},2000);
       }
     })
   }
@@ -95,6 +95,8 @@ export class PromotionInfoComponent implements OnInit {
       this.current_credential_id = data['credential_id']
       this.current_promotion_detail = data['detail']
       this.current_promotion_status = data['approved']
+      console.log(this.current_promotion);
+      
     })
   }
 

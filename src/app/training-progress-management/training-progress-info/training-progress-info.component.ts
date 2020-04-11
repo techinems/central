@@ -41,10 +41,10 @@ export class TrainingProgressInfoComponent implements OnInit {
       console.log(data);
       if (data['isSuccess']) {
         this.showToast(data['msg'],'success')
-        setTimeout(() => {window.location.reload();},2000);        
+        // setTimeout(() => {window.location.reload();},2000);        
       } else {
         this.showToast(data['msg'],'warning')
-        setTimeout(() => {window.location.reload();},2000);                
+        // setTimeout(() => {window.location.reload();},2000);                
       }
 
     },(error)=>{
