@@ -18,25 +18,25 @@
               Dashboard 
             </a>
           </li>
-          <li class="nav-item">
+          <li [ngStyle]="{'visibility': member_management_permission}" class="nav-item">
           <a class="nav-link" href="/member-management">
               <span data-feather="file"></span>
               Member Management
             </a>
           </li>
-          <li class="nav-item">
+          <li [ngStyle]="{'visibility': credential_management_permission}" class="nav-item">
             <a class="nav-link" href="/credential-management">
               <span data-feather="file"></span>
               Credential Management
             </a>
           </li>
-          <li class="nav-item">
+          <li [ngStyle]="{'visibility': trainee_progress_management_permission}" class="nav-item">
             <a class="nav-link" href="/trainee-progress-management">
               <span data-feather="file"></span>
               Training Progress Management
             </a>
           </li>
-          <li class="nav-item">
+          <li [ngStyle]="{'visibility': promotion_management_permission}" class="nav-item">
             <a class="nav-link" href="/promotion-management">
               <span data-feather="file"></span>
               Promotion Management
