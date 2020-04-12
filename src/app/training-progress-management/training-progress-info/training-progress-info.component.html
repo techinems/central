@@ -16,7 +16,7 @@
       <td>{{item.id}}</td>
       <td>{{item.text}}</td>
       <td>{{item.isFinished}}</td>
-      <td>{{item.updated_by}}</td>
+      <td>{{item.updatedByName.first_name}} {{item.updatedByName.last_name}}</td>
       <td>{{item.updated}}</td>
       <td *ngIf="is_mentor" >
         <div *ngIf="item.isFinished === true">

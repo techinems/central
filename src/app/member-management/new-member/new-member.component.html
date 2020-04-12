@@ -34,7 +34,7 @@
   </div>  
 
 
-
+<!-- 
   <h3>Local Address</h3>
   <div formGroupName="address" class="form-group">
     <label>Street</label>
@@ -48,31 +48,9 @@
 
     <label>ZIP</label>
     <input type="text" class="form-control" formControlName="zip">        
-  </div>
+  </div> -->
 
   <button class="btn btn-primary" type="submit" [disabled]="!profileForm.valid">Submit</button>
 </form>
 
 <hr>
-
-{{ permissions | json }}
-<!-- 
-<p>
-  Form Value: {{ profileForm.value | json }}
-</p>
-
-
-<p>
-  Form Status: {{ profileForm.status }}
-</p>
-
-<p>
-  <button (click)="updateProfile()">Update Profile</button>
-</p> -->
-
-
-<!-- 
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
--->

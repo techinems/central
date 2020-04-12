@@ -13,8 +13,8 @@
     <tbody>
       <tr *ngFor='let promotion of promotions'>
         <td>{{promotion.id}}</td>
-        <td>{{promotion.user_id}}</td>
-        <td>{{promotion.credential_id}}</td>
+        <td>{{promotion.userName.first_name}} {{promotion.userName.last_name}}</td>
+        <td>{{promotion.credentialName}}</td>
         <td>{{promotion.created}}</td>
         <td>
           <button (click)='getPromotion(promotion.id)' class="btn btn-primary">Detail</button>

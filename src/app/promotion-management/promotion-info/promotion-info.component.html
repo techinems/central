@@ -1,19 +1,26 @@
 <h1>Promotion Request Detail</h1>
 
-{{ current_promotion | json }}
+<!-- {{ current_promotion | json }} -->
 
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">Member ID</th>
+      <th scope="col">Member Name</th>
       <th scope="col">Vote</th>
       <th scope="col">Comment</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor='let vote of current_promotion_detail'>
-      <td>{{vote.user_id}}</td>
-      <td>{{vote.vote}}</td>
+      <td>{{vote.voterUserName.first_name}} {{vote.voterUserName.last_name}} </td>
+      <td>
+        <div *ngIf="vote.vote === true">
+          <span class="badge badge-success badge-pill"><span class="fas fa-check"></span>Approved</span>          
+        </div>
+        <div *ngIf="vote.vote === 'false'">
+          <span class="badge badge-danger badge-pill"><span class="fas fa-times"></span>Rejected</span>
+        </div>        
+      </td>
       <td>{{vote.comments}}</td>
     </tr>
   </tbody>
@@ -21,15 +28,17 @@
 
 
 <div>
+  <h2>Your vote</h2>
   <input type="text" (keyup)="onKey($event.target.value)" value="{{ currentChecklist }}" class="form-control">
   <div style="margin-left: 5px;" class="row">
     Decision <ui-switch style="margin-left: 5px;" [(ngModel)]="current_decision"></ui-switch>
   </div>
   
   
-  <button style="display: block;" type="button" (click)="vote()" class="btn btn-primary">Add Item</button>
+  <button style="display: block;" type="button" (click)="vote()" class="btn btn-primary">Submit</button>
 </div>
 
 <div *ngIf="current_promotion_status != true">
+  <h2>Final Decision</h2>
   <button style="display: block;" type="button" (click)="processPromotionRequest(true, 'Approved')" class="btn btn-primary">Approve</button>
 </div>
