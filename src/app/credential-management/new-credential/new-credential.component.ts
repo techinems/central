@@ -45,7 +45,7 @@ export class NewCredentialComponent implements OnInit {
     this.profileForm.patchValue({
       name: "First",
       abbr: "F",
-      major_cred : 0,
+      major_cred : true,
       parent_cred : 0,
       active : 1,
       created_by: 0,
