@@ -14,6 +14,7 @@ import { NewMemberComponent } from './new-member/new-member.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastNotificationsModule } from "ngx-toast-notifications";
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 const MemberManagemenRoutes: Routes = [
   { path: 'member-management',  component: MemberTableComponent },
@@ -31,6 +32,7 @@ const MemberManagemenRoutes: Routes = [
   imports: [
     BrowserAnimationsModule,
     ToastNotificationsModule,
+    BsDatepickerModule,
     NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
