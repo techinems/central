@@ -69,7 +69,7 @@ export class NewCredentialComponent implements OnInit {
     let credentialInfo = {
       "name" : formValue['name'],
       "abbr" : formValue['abbr'],
-      "major_cred" : formValue['major_cred'],
+      "major_cred" : true,
       "parent_cred" : formValue['parent_cred'],
       "active" : 1,
       "created_by": 0,
