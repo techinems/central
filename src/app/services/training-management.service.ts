@@ -35,12 +35,13 @@ export class TrainingManagementService {
     return this.apiService.post('/progress',request_body).pipe(catchError(this.formatErrors))
   }
 
-  checkOffItem(user_id, opreator_id, checklist_item_id, active): Observable<any>{
+  checkOffItem(user_id, opreator_id, checklist_item_id, active, comments): Observable<any>{
     let request_info = {
       user_id : Number(user_id),
       checklist_item_id :Number(checklist_item_id),
       active: Boolean(active),
-      updated_by: Number(opreator_id)
+      updated_by: Number(opreator_id),
+      comments: comments
     }
 
     console.log('checkoff item', request_info);

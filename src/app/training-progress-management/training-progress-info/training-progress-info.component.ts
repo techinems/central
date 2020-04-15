@@ -21,6 +21,7 @@ export class TrainingProgressInfoComponent implements OnInit {
   current_credential_id: any;
   is_mentor: boolean = false;
   is_clear: boolean = false;
+  currentComment = 'Put your thoughts here';
 
   constructor(
     private trainingManageService: TrainingManagementService,
@@ -36,7 +37,8 @@ export class TrainingProgressInfoComponent implements OnInit {
       this.current_user_id, 
       this.current_operator_id,
       checklist_item_id, 
-      (active == Boolean('true'))
+      (active == Boolean('true')),
+      this.currentComment
     ).subscribe((data)=>{
       console.log(data);
       if (data['isSuccess']) {
@@ -61,6 +63,11 @@ export class TrainingProgressInfoComponent implements OnInit {
       type: type,
     });
   }  
+
+  onKey(event: any) { // without type info
+    console.log(event);
+    this.currentComment = event;
+  }  
   
   requestForPromotion(){
     this.promotionManageService.createPromotionRequest(
@@ -84,7 +91,8 @@ export class TrainingProgressInfoComponent implements OnInit {
     this.is_mentor = Boolean(is_mentor == 'true');
     this.trainingManageService.getDetailedProgressInfo(user_id, credential_id).subscribe((data)=>{
       this.currrent_progress = data;
-
+      console.log(data);
+      
       // Check if this checklist is lcear
       let state_set = new Set();
       for (let i of data) {
