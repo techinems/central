@@ -18,7 +18,11 @@ export class CredentialInfoComponent implements OnInit {
     "parent_cred" : 'Loading',
     "created_by" : 'Loading',
     "created" : 'Loading',
-    "id" : '0'
+    "id" : '0',
+    "createdByUserName" : {
+      "first_name" : 'Loading',
+      "last_name" : 'Lading'
+    }
   };
 
   currentChecklistItem = 'SOME ITEM'
@@ -49,6 +53,20 @@ export class CredentialInfoComponent implements OnInit {
       window.location.reload();
     })
   }
+
+  udpateCheckListItem(checklist_item_id, status){
+    let itemInfo = {
+      'credential_id' : this.currentCredential.id,
+      'active' : status,
+      'checklist_item_id' : checklist_item_id, 
+    }
+    console.log(itemInfo);
+    
+    this.credentialManagementService.updateChecklistItem(itemInfo).subscribe((result)=>{
+      console.log(result);
+      window.location.reload();
+    })
+  }  
 
   ngOnInit() {
 

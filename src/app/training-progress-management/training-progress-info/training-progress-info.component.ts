@@ -41,10 +41,10 @@ export class TrainingProgressInfoComponent implements OnInit {
       console.log(data);
       if (data['isSuccess']) {
         this.showToast(data['msg'],'success')
-        window.location.reload();
+        setTimeout(() => {window.location.reload();},500);
       } else {
         this.showToast(data['msg'],'warning')
-        window.location.reload();        
+        setTimeout(() => {window.location.reload();},500);
       }
 
     },(error)=>{
@@ -83,13 +83,11 @@ export class TrainingProgressInfoComponent implements OnInit {
     this.current_credential_id = credential_id;
     this.is_mentor = Boolean(is_mentor == 'true');
     this.trainingManageService.getDetailedProgressInfo(user_id, credential_id).subscribe((data)=>{
-      console.log(data);
       this.currrent_progress = data;
 
       // Check if this checklist is lcear
       let state_set = new Set();
       for (let i of data) {
-        console.log(i);
         state_set.add(i.isFinished);
       }
       if (state_set.has(false)) {

@@ -35,25 +35,25 @@ export class CoreService {
     }
 
     toogleMeberPage(status: string){
-        console.log('some one changed me into ', status);
+        // console.log('some one changed me into ', status);
         
         this.memberManagementVisibility.next(status);
     }  
 
     toogleCredentialPage(status: string){
-        console.log('some one changed me into ', status);
+        // console.log('some one changed me into ', status);
         
         this.credentialManagementVisibility.next(status);
     }
 
     toogleTrainingPage(status: string){
-        console.log('some one changed me into ', status);
+        // console.log('some one changed me into ', status);
         
         this.trainingManagementVisibility.next(status);
     }
 
     tooglePromotionPage(status: string){
-        console.log('some one changed me into ', status);
+        // console.log('some one changed me into ', status);
         
         this.promotionManagementVisibility.next(status);
     }

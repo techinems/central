@@ -13,7 +13,17 @@
     <tr *ngFor='let progress of progresses'>
       <td>{{progress.first_name}} {{progress.last_name}}</td>
       <td>{{progress.credential_name}}</td>
-      <td>{{progress.label}}</td>
+      <td>
+        <div *ngIf="progress.label === 'Compeleted'">
+          <span class="badge badge-success badge-pill"><span class="fas fa-check"></span>Completed</span>
+        </div>
+        <div *ngIf="progress.label === 'In Progress'">
+          <span class="badge badge-warning badge-pill"><span class="fas fa-tasks"></span>In Progress</span>
+        </div>
+        <div *ngIf="progress.label === 'started'">
+          <span class="badge badge-warning badge-pill"><span class="fas fa-tasks"></span>Clear For Call</span>
+        </div>              
+      </td>
       <td>
         <button (click)="getProgressDetail(progress.user_id, progress.credential_id)" class="btn btn-primary">Detail</button>
       </td>
