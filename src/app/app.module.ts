@@ -24,6 +24,8 @@ import { TrainingEvaluationComponent } from './training-evaluation/training-eval
 import { RedirectCardComponent } from './redirect-card/redirect-card.component';
 import { LoginComponent } from './login/login.component';
 import { from } from 'rxjs';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { from } from 'rxjs';
     PersonalProfileModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,    
+    ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
+    BrowserAnimationsModule,    
   ],
   providers: [
     CoreService,

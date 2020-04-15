@@ -45,7 +45,7 @@ export class NewCredentialComponent implements OnInit {
     this.profileForm.patchValue({
       name: "First",
       abbr: "F",
-      major_cred : 0,
+      major_cred : true,
       parent_cred : 0,
       active : 1,
       created_by: 0,
@@ -69,7 +69,7 @@ export class NewCredentialComponent implements OnInit {
     let credentialInfo = {
       "name" : formValue['name'],
       "abbr" : formValue['abbr'],
-      "major_cred" : formValue['major_cred'],
+      "major_cred" : true,
       "parent_cred" : formValue['parent_cred'],
       "active" : 1,
       "created_by": 0,
@@ -77,25 +77,27 @@ export class NewCredentialComponent implements OnInit {
     }
     console.log(credentialInfo);
     this.credentialManagementService.createCredential(credentialInfo).subscribe(
-      (result) => {
-        console.log(result);
-        this.showToast(result['msg'])
-        this.router.navigate(['/credential-management']);        
+      (data) => {
+        console.log(data);
+        if (data['isSuccess']) {
+          this.showToast(data['msg'],'success')
+        } else {
+          this.showToast(data['msg'],'warning')        
+        }
+        this.router.navigate(['/credential-management']);
       }
     )
-    
-    
   }
 
-  showToast(message) {
-    const type = 'success';
+  showToast(message, level) {
+    const type = level;
     this.toaster.open({
       position: 'top-center',
       text: message,
       caption: type + ' notification',
       type: type,
     });
-  } 
+  }
 
   ngOnInit(){
     this.credentialManagementService.getCredential().subscribe(

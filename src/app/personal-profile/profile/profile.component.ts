@@ -51,6 +51,7 @@ export class ProfileComponent implements OnInit {
       (result) => {
         console.log(result);
         this.showToast(result['msg'],'success');
+        window.location.reload();
       }
     )
   }

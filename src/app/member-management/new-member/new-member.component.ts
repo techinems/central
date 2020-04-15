@@ -61,7 +61,7 @@ export class NewMemberComponent implements OnInit {
   onSubmit() {
     // TODO: Use EventEmitter with form value
     let formValue = this.profileForm.value
-    console.log(formValue['firstName']);
+    console.log(formValue);
     let userInfo = {
       "first_name" : formValue['firstName'],
       "last_name" : formValue['lastName'],

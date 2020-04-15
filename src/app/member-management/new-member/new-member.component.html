@@ -1,4 +1,4 @@
-<h1>Welcome Abroad!</h1>
+<h1>Welcome Aboard!</h1>
 
 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
@@ -29,10 +29,21 @@
 
   <div class="form-group">
     <label>Date Of Birth</label>
-    <input type="text" class="form-control" formControlName="dob">
+    <!-- <input type="text" class="form-control" formControlName="dob"> -->
+    <input type="text"
+    placeholder="Datepicker"
+    class="form-control"
+    formControlName="dob"
+    [bsConfig]="{ adaptivePosition: true }"
+    bsDatepicker>    
     <small id="emailHelp" class="form-text text-muted">Eg. 2020-01-01</small>
   </div>  
 
+  <!-- <input type="text"
+  placeholder="Datepicker"
+  class="form-control"
+  formControlName="dob"
+  bsDatepicker> -->
 
 <!-- 
   <h3>Local Address</h3>
@@ -53,4 +64,3 @@
   <button class="btn btn-primary" type="submit" [disabled]="!profileForm.valid">Submit</button>
 </form>
 
-<hr>
