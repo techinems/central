@@ -21,6 +21,7 @@ export class TrainingProgressInfoComponent implements OnInit {
   current_credential_id: any;
   is_mentor: boolean = false;
   is_clear: boolean = false;
+  currentComment = 'Put your thoughts here';
 
   constructor(
     private trainingManageService: TrainingManagementService,
@@ -36,15 +37,16 @@ export class TrainingProgressInfoComponent implements OnInit {
       this.current_user_id, 
       this.current_operator_id,
       checklist_item_id, 
-      (active == Boolean('true'))
+      (active == Boolean('true')),
+      this.currentComment
     ).subscribe((data)=>{
       console.log(data);
       if (data['isSuccess']) {
         this.showToast(data['msg'],'success')
-        window.location.reload();
+        setTimeout(() => {window.location.reload();},500);
       } else {
         this.showToast(data['msg'],'warning')
-        window.location.reload();        
+        setTimeout(() => {window.location.reload();},500);
       }
 
     },(error)=>{
@@ -60,6 +62,11 @@ export class TrainingProgressInfoComponent implements OnInit {
       caption: type + ' notification',
       type: type,
     });
+  }  
+
+  onKey(event: any) { // without type info
+    console.log(event);
+    this.currentComment = event;
   }  
   
   requestForPromotion(){
@@ -83,13 +90,12 @@ export class TrainingProgressInfoComponent implements OnInit {
     this.current_credential_id = credential_id;
     this.is_mentor = Boolean(is_mentor == 'true');
     this.trainingManageService.getDetailedProgressInfo(user_id, credential_id).subscribe((data)=>{
-      console.log(data);
       this.currrent_progress = data;
-
+      console.log(data);
+      
       // Check if this checklist is lcear
       let state_set = new Set();
       for (let i of data) {
-        console.log(i);
         state_set.add(i.isFinished);
       }
       if (state_set.has(false)) {

@@ -8,6 +8,7 @@
       <th scope="col">Status</th>
       <th scope="col">Updated By</th>
       <th scope="col">Updated At</th>
+      <th *ngIf="is_mentor" scope="col">Comment</th>
       <th *ngIf="is_mentor" scope="col">Option</th>
     </tr>
   </thead>
@@ -18,6 +19,18 @@
       <td>{{item.isFinished}}</td>
       <td>{{item.updatedByName.first_name}} {{item.updatedByName.last_name}}</td>
       <td>{{item.updated}}</td>
+      <td *ngIf="is_mentor">
+        <div class="input-group mb-3" *ngIf="item.comments">
+          <input 
+            type="text" 
+            class="form-control" 
+            placeholder="{{item.comments}}"
+            (keyup)="onKey($event.target.value)"
+            aria-label="Sizing example input" 
+            aria-describedby="inputGroup-sizing-default"
+          >
+        </div>        
+      </td>      
       <td *ngIf="is_mentor" >
         <div *ngIf="item.isFinished === true">
           <button (click)='checkOffItem(item.id, false)' class="btn btn-danger">Undo</button>
@@ -26,6 +39,7 @@
           <button (click)='checkOffItem(item.id, true)' class="btn btn-success">Check-off</button>
         </div>
       </td>
+
     </tr>
   </tbody>
 </table>

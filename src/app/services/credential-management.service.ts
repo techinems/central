@@ -25,11 +25,15 @@ export class CredentialManagementService {
   }
 
   createCredential(credentialInfo): Observable<any>{
-      return this.apiService.post('/credentials/',credentialInfo).pipe(catchError(this.formatErrors))
+    return this.apiService.post('/credentials/',credentialInfo).pipe(catchError(this.formatErrors))
   }
   
   createChecklistItem(itemInfo): Observable<any>{
     return this.apiService.post('/credentials/checklistItems/',itemInfo).pipe(catchError(this.formatErrors))
-}
+  }
+
+  updateChecklistItem(itemInfo): Observable<any>{
+    return this.apiService.put('/credentials/checklistItems/',itemInfo).pipe(catchError(this.formatErrors))
+  }  
 
 }
