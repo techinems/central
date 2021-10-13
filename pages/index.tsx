@@ -1,13 +1,10 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from "react-google-login";
+import Login from '../components/auth/login';
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
-  const handleGoogleLogin = async (googleData: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-    console.log(googleData);
-  }
   return (
     <div className={styles.container}>
       <Head>
@@ -23,13 +20,7 @@ const Home: NextPage = () => {
 
         <div className="grid">
           <div className="col-span-1">
-            <GoogleLogin
-              clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''}
-              buttonText="Log in with Google"
-              onSuccess={handleGoogleLogin}
-              onFailure={handleGoogleLogin}
-              cookiePolicy={'single_host_origin'}
-            />
+            <Login />
           </div>
         </div>
       </main>
