@@ -6,9 +6,9 @@ export type AuthPageOptions = {
   requiresAuth: boolean
 };
 
-export type NextAuthPage = {
+export type NextAuthPage<P = {}, IP = P> = {
   authOptions?: AuthPageOptions;
-} & NextPage;
+} & NextPage<P, IP>;
 
 export type EnhancedAppProps = AppProps & {
   Component: NextAuthPage;

@@ -17,6 +17,8 @@ export default NextAuth({
       return token;
     },
     async session({session, token}): Promise<Session> {
+      // Enrich the session with the user's google account ID
+      session.googleId = token.sub;
       return session;
     }
   },

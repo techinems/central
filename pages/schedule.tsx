@@ -1,9 +1,6 @@
-import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import Login from '../components/auth/login'
 import styles from '../styles/Home.module.css'
-import { AuthPageOptions, NextAuthPage } from '../utils/authTypings'
+import { NextAuthPage } from '../utils/authTypings'
 
 const SchedulePage: NextAuthPage = () => {
   return (
