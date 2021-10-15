@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import Login from '../components/auth/login'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
@@ -19,6 +20,7 @@ const Home: NextPage = () => {
 
         <div className="grid">
           <div className="col-span-1">
+            <Login />
           </div>
         </div>
       </main>
