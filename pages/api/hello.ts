@@ -5,9 +5,16 @@ type Data = {
   name: string
 }
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  res.status(200).json({ name: 'John Doe' })
+  try {
+    const response = await (await fetch('http://rampart:8080/jwt/issue', {method: 'POST'})).json();
+    console.log(response.token);
+    res.status(200).json({ name: 'FOO' })
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({name: "Error: " + JSON.stringify(err)});
+  }
 }
