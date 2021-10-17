@@ -3,6 +3,7 @@ import 'tailwindcss/tailwind.css'
 import { SessionProvider, signIn, useSession } from 'next-auth/react'
 import React, { Fragment, FunctionComponent, useEffect } from 'react';
 import { EnhancedAppProps } from '../utils/authTypings';
+import MemberForm from '../components/memberForm';
 
 function Central({ Component, pageProps: { session, ...pageProps } }: EnhancedAppProps) {
   return (
@@ -31,12 +32,16 @@ const AuthGuard: FunctionComponent = ({ children }) => {
   }, [status, isSignedIn]);
 
   if (isSignedIn) {
-    // Return all the children if signed in, fragment prevents a parent container as we don't want layout issues
-    return (
-      <Fragment>
-        {children}
-      </Fragment>
-    );
+    if (session.isNewUser === false) {
+      // Return all the children if signed in, fragment prevents a parent container as we don't want layout issues
+      return (
+        <Fragment>
+          {children}
+        </Fragment>
+      );
+    } else {
+      return <MemberForm title="Welcome! Enter your info to create an account." shouldCreateNewMember={true} />
+    }
   }
 
   return <div>Loading...</div>;
