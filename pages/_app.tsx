@@ -40,7 +40,11 @@ const AuthGuard: FunctionComponent = ({ children }) => {
         </Fragment>
       );
     } else {
-      return <MemberForm title="Welcome! Enter your info to create an account." shouldCreateNewMember={true} />
+      return (
+        <div className="flex items-center justify-center h-screen">
+          <MemberForm title="Welcome! Enter your info to create an account." shouldCreateNewMember={true} />
+        </div>
+      );
     }
   }
 
