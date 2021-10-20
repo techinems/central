@@ -38,9 +38,6 @@ const TextInputWithLabel: FunctionComponent<{label: string, placeholder: string 
         {label}
       </label>
       <input {...field} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder={placeholder} />
-      <div>
-        {field?.value}
-      </div>
     </Fragment>
   )
 }
@@ -80,7 +77,7 @@ const MemberForm: FunctionComponent<MemberForm> = ({ title, shouldCreateNewMembe
     localStreet: Yup.string().notRequired(),
     localCity: Yup.string().notRequired(),
     localZip: Yup.string().notRequired(),
-    phoneNumber: Yup.string().min(10).max(11).matches(phoneRegExp, "Phone number is invalid").required("Phone number is required"),
+    phoneNumber: Yup.string().min(10).max(12).matches(phoneRegExp, "Phone number is invalid").required("Phone number is required"),
     rcsId: Yup.string().notRequired(),
     rin: Yup.string().min(9).max(9).notRequired()
   });
@@ -98,18 +95,18 @@ const MemberForm: FunctionComponent<MemberForm> = ({ title, shouldCreateNewMembe
         <Formik
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
-          // validationSchema={memberFormValidation}
+          validationSchema={memberFormValidation}
         >
           <Form>
             <div className="py-4 px-4">
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                   <ErrorMessage name="firstName" component="span" className="text-red-500 font-extrabold" />
-                  <Field name="firstName" as={TextInputWithLabel} placeholder="Dan" label="First Name" required />
+                  <Field name="firstName" component={TextInputWithLabel} placeholder="Dan" label="First Name" required />
                 </div>
                 <div className="w-full md:w-1/2 px-3">
                   <ErrorMessage name="lastName" component="span" className="text-red-500 font-extrabold" />
-                  <Field name="lastName" as={TextInputWithLabel} placeholder="Bruce" label="Last Name" required />
+                  <Field name="lastName" component={TextInputWithLabel} placeholder="Bruce" label="Last Name" required />
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-2">
@@ -123,69 +120,69 @@ const MemberForm: FunctionComponent<MemberForm> = ({ title, shouldCreateNewMembe
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="month">
                     Month
                   </label>
-                  <Field name="month" as={FormDropDown} options={getMonthsForDropdown()} required />
+                  <Field name="month" component={FormDropDown} options={getMonthsForDropdown()} required />
                 </div>
                 <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                   <ErrorMessage name="day" component="span" className="text-red-500 font-extrabold" />
-                  <Field name="day" as={TextInputWithLabel} placeholder="15" label="Day" required />
+                  <Field name="day" component={TextInputWithLabel} placeholder="15" label="Day" required />
                 </div>
                 <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                   <ErrorMessage name="year" component="span" className="text-red-500 font-extrabold" />
-                  <Field name="year" as={TextInputWithLabel} placeholder="1919" label="Year" required />
+                  <Field name="year" component={TextInputWithLabel} placeholder="1919" label="Year" required />
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full px-3 mb-6 md:mb-0">
                   <ErrorMessage name="email" component="span" className="text-red-500 font-extrabold" />
-                  <Field name="email" as={TextInputWithLabel} placeholder="dbruce@rpiambulance.com" label="Email Address" required />
+                  <Field name="email" component={TextInputWithLabel} placeholder="dbruce@rpiambulance.com" label="Email Address" required />
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full px-3 mb-6 md:mb-0">
                   <ErrorMessage name="homeStreet" component="span" className="text-red-500 font-extrabold" />
-                  <Field name="homeStreet" as={TextInputWithLabel} placeholder="30 Jillson Circle" label="Home Address" />
+                  <Field name="homeStreet" component={TextInputWithLabel} placeholder="30 Jillson Circle" label="Home Address" />
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-2">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                   <ErrorMessage name="homeCity" component="span" className="text-red-500 font-extrabold" />
-                  <Field name="homeCity" as={TextInputWithLabel} placeholder="Milford" label="Home City" />
+                  <Field name="homeCity" component={TextInputWithLabel} placeholder="Milford" label="Home City" />
                 </div>
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                   <ErrorMessage name="homeZip" component="span" className="text-red-500 font-extrabold" />
-                  <Field name="homeZip" as={TextInputWithLabel} placeholder="01757" label="Home Zipcode" />
+                  <Field name="homeZip" component={TextInputWithLabel} placeholder="01757" label="Home Zipcode" />
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full px-3 mb-6 md:mb-0">
                   <ErrorMessage name="localStreet" component="span" className="text-red-500 font-extrabold" />
-                  <Field name="localStreet" as={TextInputWithLabel} placeholder="1999 Burdett Ave. Cary 215" label="Local Address" />
+                  <Field name="localStreet" component={TextInputWithLabel} placeholder="1999 Burdett Ave. Cary 215" label="Local Address" />
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-2">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                   <ErrorMessage name="localCity" component="span" className="text-red-500 font-extrabold" />
-                  <Field name="localCity" as={TextInputWithLabel} placeholder="Troy" label="Local City" />
+                  <Field name="localCity" component={TextInputWithLabel} placeholder="Troy" label="Local City" />
                 </div>
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                   <ErrorMessage name="localZip" component="span" className="text-red-500 font-extrabold" />
-                  <Field name="localZip" as={TextInputWithLabel} placeholder="12180" label="Local Zipcode" />
+                  <Field name="localZip" component={TextInputWithLabel} placeholder="12180" label="Local Zipcode" />
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full px-3 mb-6 md:mb-0">
                   <ErrorMessage name="phoneNumber" component="span" className="text-red-500 font-extrabold" />
-                  <Field name="phoneNumber" as={TextInputWithLabel} placeholder="508-688-5830" label="Phone Number" required />
+                  <Field name="phoneNumber" component={TextInputWithLabel} placeholder="508-688-5830" label="Phone Number" required />
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                   <ErrorMessage name="rcsId" component="span" className="text-red-500 font-extrabold" />
-                  <Field name="rcsId" as={TextInputWithLabel} placeholder="bruced" label="RCS ID" required />
+                  <Field name="rcsId" component={TextInputWithLabel} placeholder="bruced" label="RCS ID" required />
                 </div>
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                   <ErrorMessage name="rin" component="span" className="text-red-500 font-extrabold" />
-                  <Field name="rin" as={TextInputWithLabel} placeholder="661474634" label="RIN" required />
+                  <Field name="rin" component={TextInputWithLabel} placeholder="661474634" label="RIN" required />
                 </div>
               </div>
             </div>
