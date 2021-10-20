@@ -1,3 +1,4 @@
+import { FieldProps } from "formik";
 import { FunctionComponent } from "react";
 
 export interface FormDropDownProps {
@@ -5,7 +6,7 @@ export interface FormDropDownProps {
   options: {value: string, label: string}[];
 }
 
-const FormDropDown: FunctionComponent<FormDropDownProps> = ({id, options}) => {
+const FormDropDown: FunctionComponent<FormDropDownProps & FieldProps> = ({id, options, field}) => {
   const optionElements = options.map(option => {
     return (
       <option key={option.value} value={option.value}> {option.label} </option>
@@ -13,7 +14,7 @@ const FormDropDown: FunctionComponent<FormDropDownProps> = ({id, options}) => {
   });
   return (
     <div className="relative">
-      <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id={id}>
+      <select {...field} className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id={id}>
         {optionElements}
       </select>
       <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">

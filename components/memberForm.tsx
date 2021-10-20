@@ -1,4 +1,4 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, FieldProps, Form, Formik } from "formik";
 import React, { Fragment, FunctionComponent } from "react";
 import { getMonthsForDropdown } from "../utils/commonDropDown";
 import FormDropDown from "./formDropDown";
@@ -31,13 +31,16 @@ interface MemberFormEntries {
 }
 
 // Defined only in this class because this is styled for this specific form and may not scale easily elsewhere
-const TextInputWithLabel: FunctionComponent<{ name: string, label: string, placeholder: string }> = ({ name, label, placeholder }) => {
+const TextInputWithLabel: FunctionComponent<{label: string, placeholder: string } & FieldProps> = ({ label, placeholder, field }) => {
   return (
     <Fragment>
-      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor={name}>
+      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor={field?.name}>
         {label}
       </label>
-      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name={name} type="text" placeholder={placeholder} />
+      <input {...field} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder={placeholder} />
+      <div>
+        {field?.value}
+      </div>
     </Fragment>
   )
 }
@@ -63,7 +66,7 @@ const MemberForm: FunctionComponent<MemberForm> = ({ title, shouldCreateNewMembe
   };
   // Phone number regex
   const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
-  // This specifies the validation structured required for the form
+  // This specifies the validation structure required for the form
   const memberFormValidation: SchemaOf<MemberFormEntries> = Yup.object().shape({
     firstName: Yup.string().required("First name is required"),
     lastName: Yup.string().required("Last name is required"),
@@ -87,7 +90,7 @@ const MemberForm: FunctionComponent<MemberForm> = ({ title, shouldCreateNewMembe
     setSubmitting(false);
   }
   return (
-    <div className="w-1/4 rounded-lg shadow-xl bg-gray-300 p-10">
+    <div className="w-full lg:w-1/4 sm:w-1/2 rounded-lg shadow-xl bg-gray-300 p-10">
       <header className=" text-2xl font-extrabold py-4 px-4 text-center">
         {title}
       </header>
@@ -95,18 +98,18 @@ const MemberForm: FunctionComponent<MemberForm> = ({ title, shouldCreateNewMembe
         <Formik
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
-          validationSchema={memberFormValidation}
+          // validationSchema={memberFormValidation}
         >
           <Form>
             <div className="py-4 px-4">
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                  <ErrorMessage name="firstName" />
-                  <Field name="firstName" as={TextInputWithLabel} placeholder="Dan" label="First Name" />
+                  <ErrorMessage name="firstName" component="span" className="text-red-500 font-extrabold" />
+                  <Field name="firstName" as={TextInputWithLabel} placeholder="Dan" label="First Name" required />
                 </div>
                 <div className="w-full md:w-1/2 px-3">
-                  <ErrorMessage name="lastName" />
-                  <Field name="lastName" as={TextInputWithLabel} placeholder="Bruce" label="Last Name" />
+                  <ErrorMessage name="lastName" component="span" className="text-red-500 font-extrabold" />
+                  <Field name="lastName" as={TextInputWithLabel} placeholder="Bruce" label="Last Name" required />
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-2">
@@ -116,31 +119,87 @@ const MemberForm: FunctionComponent<MemberForm> = ({ title, shouldCreateNewMembe
                   </p>
                 </div>
                 <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                  <ErrorMessage name="month" component="span" className="text-red-500 font-extrabold" />
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="month">
                     Month
                   </label>
-                  <Field name="month" as={FormDropDown} options={getMonthsForDropdown()} />
+                  <Field name="month" as={FormDropDown} options={getMonthsForDropdown()} required />
                 </div>
                 <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                  <ErrorMessage name="day" />
-                  <Field name="day" as={TextInputWithLabel} placeholder="15" label="Day" />
+                  <ErrorMessage name="day" component="span" className="text-red-500 font-extrabold" />
+                  <Field name="day" as={TextInputWithLabel} placeholder="15" label="Day" required />
                 </div>
                 <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                  <ErrorMessage name="year" />
-                  <Field name="year" as={TextInputWithLabel} placeholder="1919" label="Year" />
+                  <ErrorMessage name="year" component="span" className="text-red-500 font-extrabold" />
+                  <Field name="year" as={TextInputWithLabel} placeholder="1919" label="Year" required />
                 </div>
               </div>
+              <div className="flex flex-wrap -mx-3 mb-6">
+                <div className="w-full px-3 mb-6 md:mb-0">
+                  <ErrorMessage name="email" component="span" className="text-red-500 font-extrabold" />
+                  <Field name="email" as={TextInputWithLabel} placeholder="dbruce@rpiambulance.com" label="Email Address" required />
+                </div>
+              </div>
+              <div className="flex flex-wrap -mx-3 mb-6">
+                <div className="w-full px-3 mb-6 md:mb-0">
+                  <ErrorMessage name="homeStreet" component="span" className="text-red-500 font-extrabold" />
+                  <Field name="homeStreet" as={TextInputWithLabel} placeholder="30 Jillson Circle" label="Home Address" />
+                </div>
+              </div>
+              <div className="flex flex-wrap -mx-3 mb-2">
+                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  <ErrorMessage name="homeCity" component="span" className="text-red-500 font-extrabold" />
+                  <Field name="homeCity" as={TextInputWithLabel} placeholder="Milford" label="Home City" />
+                </div>
+                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  <ErrorMessage name="homeZip" component="span" className="text-red-500 font-extrabold" />
+                  <Field name="homeZip" as={TextInputWithLabel} placeholder="01757" label="Home Zipcode" />
+                </div>
+              </div>
+              <div className="flex flex-wrap -mx-3 mb-6">
+                <div className="w-full px-3 mb-6 md:mb-0">
+                  <ErrorMessage name="localStreet" component="span" className="text-red-500 font-extrabold" />
+                  <Field name="localStreet" as={TextInputWithLabel} placeholder="1999 Burdett Ave. Cary 215" label="Local Address" />
+                </div>
+              </div>
+              <div className="flex flex-wrap -mx-3 mb-2">
+                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  <ErrorMessage name="localCity" component="span" className="text-red-500 font-extrabold" />
+                  <Field name="localCity" as={TextInputWithLabel} placeholder="Troy" label="Local City" />
+                </div>
+                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  <ErrorMessage name="localZip" component="span" className="text-red-500 font-extrabold" />
+                  <Field name="localZip" as={TextInputWithLabel} placeholder="12180" label="Local Zipcode" />
+                </div>
+              </div>
+              <div className="flex flex-wrap -mx-3 mb-6">
+                <div className="w-full px-3 mb-6 md:mb-0">
+                  <ErrorMessage name="phoneNumber" component="span" className="text-red-500 font-extrabold" />
+                  <Field name="phoneNumber" as={TextInputWithLabel} placeholder="508-688-5830" label="Phone Number" required />
+                </div>
+              </div>
+              <div className="flex flex-wrap -mx-3 mb-6">
+                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  <ErrorMessage name="rcsId" component="span" className="text-red-500 font-extrabold" />
+                  <Field name="rcsId" as={TextInputWithLabel} placeholder="bruced" label="RCS ID" required />
+                </div>
+                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  <ErrorMessage name="rin" component="span" className="text-red-500 font-extrabold" />
+                  <Field name="rin" as={TextInputWithLabel} placeholder="661474634" label="RIN" required />
+                </div>
+              </div>
+            </div>
+            <div className="text-center py-3 px-8 text-gray-500">
+              <button
+                className="py-2 px-4 mt-5 bg-green-500 rounded-lg text-white font-semibold hover:bg-green-600"
+                type="submit"
+              >
+                Submit
+              </button>
             </div>
           </Form>
         </Formik>
       </div>
-      <footer className="text-center py-3 px-8 text-gray-500">
-        <button
-          className="py-2 px-4 mt-5 bg-green-500 rounded-lg text-white font-semibold hover:bg-green-600"
-        >
-          Submit
-        </button>
-      </footer>
     </div>
   );
 };
