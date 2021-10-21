@@ -36,5 +36,7 @@ export default NextAuth({
       return session;
     }
   },
-  secret: process.env.GOOGLE_CLIENT_SECRET || 'dev'
+  // Set the secrets for the application
+  secret: process.env.GOOGLE_CLIENT_SECRET || 'dev',
+  jwt : { secret: process.env.GOOGLE_CLIENT_SECRET || 'dev' },
 });

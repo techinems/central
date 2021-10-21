@@ -2,7 +2,7 @@ import '../styles/globals.css'
 import 'tailwindcss/tailwind.css'
 import { SessionProvider, signIn, useSession } from 'next-auth/react'
 import React, { Fragment, FunctionComponent, useEffect } from 'react';
-import { EnhancedAppProps } from '../utils/authTypings';
+import { EnhancedAppProps } from '../utils/common/authTypings';
 import MemberForm from '../components/memberForm';
 
 function Central({ Component, pageProps: { session, ...pageProps } }: EnhancedAppProps) {

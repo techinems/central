@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { NextAuthPage } from '../utils/authTypings'
+import { NextAuthPage } from '../utils/common/authTypings'
 
 const SchedulePage: NextAuthPage = () => {
   return (

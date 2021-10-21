@@ -1,9 +1,11 @@
 import { ErrorMessage, Field, FieldProps, Form, Formik } from "formik";
 import React, { Fragment, FunctionComponent } from "react";
-import { getMonthsForDropdown } from "../utils/commonDropDown";
+import { getMonthsForDropdown } from "../utils/frontend/commonDropDowns";
 import FormDropDown from "./formDropDown";
 import * as Yup from "yup";
 import { SchemaOf } from "yup";
+import { MemberFormEntries } from "../utils/common/user";
+import axios from "axios";
 
 
 export interface MemberForm {
@@ -12,26 +14,8 @@ export interface MemberForm {
   memberInfo?: any;
 }
 
-interface MemberFormEntries {
-  firstName: string;
-  lastName: string;
-  month: string;
-  day: string;
-  year: string;
-  email: string;
-  homeStreet?: string;
-  homeCity?: string;
-  homeZip?: string;
-  localStreet?: string;
-  localCity?: string;
-  localZip?: string;
-  phoneNumber: string;
-  rcsId?: string;
-  rin?: string;
-}
-
 // Defined only in this class because this is styled for this specific form and may not scale easily elsewhere
-const TextInputWithLabel: FunctionComponent<{label: string, placeholder: string } & FieldProps> = ({ label, placeholder, field }) => {
+const TextInputWithLabel: FunctionComponent<{ label: string, placeholder: string } & FieldProps> = ({ label, placeholder, field }) => {
   return (
     <Fragment>
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor={field?.name}>
@@ -57,7 +41,7 @@ const MemberForm: FunctionComponent<MemberForm> = ({ title, shouldCreateNewMembe
     localStreet: "",
     localCity: "",
     localZip: "",
-    phoneNumber: "",
+    phone: "",
     rcsId: "",
     rin: ""
   };
@@ -77,14 +61,21 @@ const MemberForm: FunctionComponent<MemberForm> = ({ title, shouldCreateNewMembe
     localStreet: Yup.string().notRequired(),
     localCity: Yup.string().notRequired(),
     localZip: Yup.string().notRequired(),
-    phoneNumber: Yup.string().min(10).max(12).matches(phoneRegExp, "Phone number is invalid").required("Phone number is required"),
+    phone: Yup.string().min(10).max(12).matches(phoneRegExp, "Phone number is invalid").required("Phone number is required"),
     rcsId: Yup.string().notRequired(),
     rin: Yup.string().min(9).max(9).notRequired()
   });
-  const handleSubmit = (values: MemberFormEntries, setSubmitting: (isSumbitting: boolean) => void) => {
-    console.log(JSON.stringify(values));
-    // We've finished handling the form so we can set the submitting to false
-    setSubmitting(false);
+  const handleSubmit = async (values: MemberFormEntries, setSubmitting: (isSumbitting: boolean) => void) => {
+    try {
+      // We've finished handling the form so we can set the submitting to false
+      const createUserResponse = await axios.post("/api/user/createUser", values);
+      if (createUserResponse.status === 200) {
+        setSubmitting(false);
+      }
+      alert(createUserResponse.data);
+    } catch (err) {
+      console.error(err);
+    }
   }
   return (
     <div className="w-full lg:w-1/4 sm:w-1/2 rounded-lg shadow-xl bg-gray-300 p-10">
@@ -171,8 +162,8 @@ const MemberForm: FunctionComponent<MemberForm> = ({ title, shouldCreateNewMembe
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full px-3 mb-6 md:mb-0">
-                  <ErrorMessage name="phoneNumber" component="span" className="text-red-500 font-extrabold" />
-                  <Field name="phoneNumber" component={TextInputWithLabel} placeholder="508-688-5830" label="Phone Number" required />
+                  <ErrorMessage name="phone" component="span" className="text-red-500 font-extrabold" />
+                  <Field name="phone" component={TextInputWithLabel} placeholder="508-688-5830" label="Phone Number" required />
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">

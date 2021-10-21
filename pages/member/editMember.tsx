@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react';
 import Head from 'next/head'
-import { NextAuthPage } from '../../utils/authTypings';
+import { NextAuthPage } from '../../utils/common/authTypings';
 
 export interface EditMemberProps {
   memberId?: string;
