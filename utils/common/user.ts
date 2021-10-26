@@ -9,9 +9,11 @@ export interface MemberFormEntries {
   email: string;
   homeStreet?: string;
   homeCity?: string;
+  homeState?: string;
   homeZip?: string;
   localStreet?: string;
   localCity?: string;
+  localState?: string;
   localZip?: string;
   phone: string;
   rcsId?: string;
@@ -32,9 +34,11 @@ export interface ServerUser {
   email: string;
   home_street?: string;
   home_city?: string;
+  home_state?: string;
   home_zip?: string;
   local_street?: string;
   local_city?: string;
+  local_state?: string
   local_zip?: string;
   phone: string;
   rcs_id?: string;
@@ -49,9 +53,11 @@ export function memberFormToServerUser(form: MemberFormEntries): Partial<ServerU
     email: form.email,
     home_street: form.homeStreet,
     home_city: form.homeCity,
+    home_state: form.homeState,
     home_zip: form.homeZip,
     local_street: form.localStreet,
     local_city: form.localCity,
+    local_state: form.localState,
     local_zip: form.localZip,
     phone: form.phone,
     rcs_id: form.rcsId,

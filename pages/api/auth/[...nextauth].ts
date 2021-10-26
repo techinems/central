@@ -2,6 +2,7 @@ import axios from "axios";
 import NextAuth, { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import GoogleProvider from "next-auth/providers/google";
+import { getRampartToken, hasWebsiteAccount } from "../../../utils/backend/auth";
 
 /**
  * Sets up the Next Auth backend API to handle google login
@@ -15,14 +16,13 @@ export default NextAuth({
   ],
   callbacks: {
     async jwt({token}): Promise<JWT> {
-      if (process.env.NEXT_PUBLIC_RAMPART_URL && token.sub) {
-        let isNewUser = true;
-        try {
-          isNewUser = (await axios.get<{isNewUser: boolean}>(`${process.env.NEXT_PUBLIC_RAMPART_URL}/metadata/isNewUser/${token.sub}`)).data.isNewUser;
-          token.isNewUser = isNewUser;
-        } catch (err) {
-          console.error(err);
-        }
+      // Get whether or not they're a new user so we can show them the create user dialog
+      if (token.sub) {
+        token.isNewUser = await hasWebsiteAccount(token.sub);
+      }
+      // If they have a website account populate the rampart token
+      if (token.sub && !token.isNewUser) {
+        token.rampartToken = await getRampartToken(token.sub);
       }
       return token;
     },
@@ -30,7 +30,7 @@ export default NextAuth({
       // Enrich the session with the user's google account ID
       session.googleId = token.sub;
       // It's important to know if the user is new so we can show them the create account page
-      if (token.isNewUser) {
+      if (token.isNewUser !== undefined) {
         session.isNewUser = token.isNewUser;
       }
       return session;

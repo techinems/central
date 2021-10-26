@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, FieldProps, Form, Formik } from "formik";
 import React, { Fragment, FunctionComponent } from "react";
-import { getMonthsForDropdown } from "../utils/frontend/commonDropDowns";
+import { getMonthsForDropdown, getStatesForDropdown } from "../utils/frontend/commonDropDowns";
 import FormDropDown from "./formDropDown";
 import * as Yup from "yup";
 import { SchemaOf } from "yup";
@@ -37,9 +37,11 @@ const MemberForm: FunctionComponent<MemberForm> = ({ title, shouldCreateNewMembe
     email: "",
     homeStreet: "",
     homeCity: "",
+    homeState: "",
     homeZip: "",
     localStreet: "",
     localCity: "",
+    localState: "",
     localZip: "",
     phone: "",
     rcsId: "",
@@ -57,25 +59,31 @@ const MemberForm: FunctionComponent<MemberForm> = ({ title, shouldCreateNewMembe
     email: Yup.string().email("Email is invalid").required("Email is required"),
     homeStreet: Yup.string().notRequired(),
     homeCity: Yup.string().notRequired(),
+    homeState: Yup.string().notRequired(),
     homeZip: Yup.string().notRequired(),
     localStreet: Yup.string().notRequired(),
     localCity: Yup.string().notRequired(),
+    localState: Yup.string().notRequired(),
     localZip: Yup.string().notRequired(),
     phone: Yup.string().min(10).max(12).matches(phoneRegExp, "Phone number is invalid").required("Phone number is required"),
     rcsId: Yup.string().notRequired(),
     rin: Yup.string().min(9).max(9).notRequired()
   });
   const handleSubmit = async (values: MemberFormEntries, setSubmitting: (isSumbitting: boolean) => void) => {
+    if (!shouldCreateNewMember) {
+      return;
+    }
     try {
       // We've finished handling the form so we can set the submitting to false
       const createUserResponse = await axios.post("/api/user/createUser", values);
       if (createUserResponse.status === 200) {
         setSubmitting(false);
       }
-      alert(createUserResponse.data);
     } catch (err) {
       console.error(err);
     }
+    // Refresh the page to get the new user (we must be null safe in case window isn't defined which is possible with next)
+    window?.location?.reload();
   }
   return (
     <div className="w-full lg:w-1/4 sm:w-1/2 rounded-lg shadow-xl bg-gray-300 p-10">
@@ -135,11 +143,18 @@ const MemberForm: FunctionComponent<MemberForm> = ({ title, shouldCreateNewMembe
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-2">
-                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                   <ErrorMessage name="homeCity" component="span" className="text-red-500 font-extrabold" />
                   <Field name="homeCity" component={TextInputWithLabel} placeholder="Milford" label="Home City" />
                 </div>
-                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                  <ErrorMessage name="homeState" component="span" className="text-red-500 font-extrabold" />
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="homeState">
+                    Home State
+                  </label>
+                  <Field name="homeState" component={FormDropDown} options={getStatesForDropdown()} />
+                </div>
+                <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                   <ErrorMessage name="homeZip" component="span" className="text-red-500 font-extrabold" />
                   <Field name="homeZip" component={TextInputWithLabel} placeholder="01757" label="Home Zipcode" />
                 </div>
@@ -151,11 +166,18 @@ const MemberForm: FunctionComponent<MemberForm> = ({ title, shouldCreateNewMembe
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-2">
-                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                   <ErrorMessage name="localCity" component="span" className="text-red-500 font-extrabold" />
                   <Field name="localCity" component={TextInputWithLabel} placeholder="Troy" label="Local City" />
                 </div>
-                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                  <ErrorMessage name="localState" component="span" className="text-red-500 font-extrabold" />
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="localState">
+                    Local State
+                  </label>
+                  <Field name="localState" component={FormDropDown} options={getStatesForDropdown()} />
+                </div>
+                <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                   <ErrorMessage name="localZip" component="span" className="text-red-500 font-extrabold" />
                   <Field name="localZip" component={TextInputWithLabel} placeholder="12180" label="Local Zipcode" />
                 </div>
