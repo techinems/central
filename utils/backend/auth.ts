@@ -18,6 +18,11 @@ export async function hasWebsiteAccount(googleId: string): Promise<boolean> {
   return true;
 }
 
+/**
+ * Requests the JWT token used to authenticate with rampart
+ * @param googleId The google Id of the user
+ * @returns A token for the user to use for authentication
+ */
 export async function getRampartToken(googleId: string): Promise<string | undefined> {
   if (!process.env.NEXT_PUBLIC_RAMPART_URL || !process.env.JWT_SECRET) {
     return;
