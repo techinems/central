@@ -1,3 +1,4 @@
+import axios, { AxiosError } from "axios";
 
 // This contains properties that are editable for a user
 export interface MemberFormEntries {
@@ -63,4 +64,31 @@ export function memberFormToServerUser(form: MemberFormEntries): Partial<ServerU
     rcs_id: form.rcsId,
     rin: form.rin
   };
+}
+
+/**
+ * Given an id and the authoization token, get the user from the database
+ * @param idOrGoogleId The id or google id of the user
+ * @param rampartToken The authorized token
+ * @returns A user or undefined if one does not exist
+ */
+export async function getUser(idOrGoogleId: string, rampartToken: string): Promise<ServerUser | undefined> {
+  if (!process.env.NEXT_PUBLIC_RAMPART_URL) {
+    return;
+  }
+  const rampartUrl = process.env.NEXT_PUBLIC_RAMPART_URL;
+  try {
+    // Request the user from Rampart passing the rampart token in as a header
+    const user: ServerUser = (await axios.get<ServerUser>(`${rampartUrl}/user/${idOrGoogleId}`,
+      {
+        headers: { 'rampart-token': rampartToken }
+      })).data;
+    return user;
+  } catch (err: any) {
+    if (axios.isAxiosError(err)) {
+      console.error(err.response?.data);
+    } else {
+      console.error(err);
+    }
+  }
 }

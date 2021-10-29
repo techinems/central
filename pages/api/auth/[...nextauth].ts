@@ -3,6 +3,7 @@ import NextAuth, { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import GoogleProvider from "next-auth/providers/google";
 import { getRampartToken, hasWebsiteAccount } from "../../../utils/backend/auth";
+import { getUser } from "../../../utils/common/user";
 
 /**
  * Sets up the Next Auth backend API to handle google login
@@ -32,6 +33,14 @@ export default NextAuth({
       // It's important to know if the user is new so we can show them the create account page
       if (token.isNewUser !== undefined) {
         session.isNewUser = token.isNewUser;
+      }
+      if (token.isNewUser === false && typeof token.rampartToken === 'string' && token.sub) {
+        // Populate the information from rampart to the session object so we can access it everywhere in central
+        const user = await getUser(token.sub, token.rampartToken);
+        if (user) {
+          session.rampartUser = user;
+          session.rampartToken = token.rampartToken;
+        }
       }
       return session;
     }

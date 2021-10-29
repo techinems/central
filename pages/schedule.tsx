@@ -1,8 +1,14 @@
+import { useSession } from 'next-auth/react';
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import { NextAuthPage } from '../utils/common/authTypings'
+import { ServerUser } from '../utils/common/user';
 
 const SchedulePage: NextAuthPage = () => {
+  const { data: session } = useSession();
+  const rampartUser = session?.rampartUser as ServerUser | undefined;
+  const firstName = rampartUser?.first_name || 'Unknown First'
+  const lastName = rampartUser?.last_name || 'Unknown Last'
   return (
     <div className={styles.container}>
       <Head>
@@ -11,7 +17,7 @@ const SchedulePage: NextAuthPage = () => {
 
       <main className="justify-center">
         <h1 className="font-bold">
-          Congrats on signing In
+          Congrats on signing In {firstName} {lastName}!
         </h1>
 
         <div className="grid">

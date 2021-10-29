@@ -40,6 +40,7 @@ const AuthGuard: FunctionComponent = ({ children }) => {
         </Fragment>
       );
     } else {
+      // If not signed in show them the create account form
       return (
         <div className="flex items-center justify-center md:h-screen">
           <MemberForm title="Enter your info to create an account." shouldCreateNewMember={true} />
