@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError } from 'axios';
 
 // This contains properties that are editable for a user
 export interface MemberFormEntries {
@@ -9,10 +9,12 @@ export interface MemberFormEntries {
   year: string;
   email: string;
   homeStreet?: string;
+  homeApartment?: string;
   homeCity?: string;
   homeState?: string;
   homeZip?: string;
   localStreet?: string;
+  localApartment?: string;
   localCity?: string;
   localState?: string;
   localZip?: string;
@@ -44,26 +46,26 @@ export interface ServerUser {
   phone: string;
   rcs_id?: string;
   rin?: string;
-};
+}
 
 export function memberFormToServerUser(form: MemberFormEntries): Partial<ServerUser> {
-  return {
-    first_name: form.firstName,
-    last_name: form.lastName,
-    dob: `${form.year}-${form.month}-${form.day}`,
-    email: form.email,
-    home_street: form.homeStreet,
-    home_city: form.homeCity,
-    home_state: form.homeState,
-    home_zip: form.homeZip,
-    local_street: form.localStreet,
-    local_city: form.localCity,
-    local_state: form.localState,
-    local_zip: form.localZip,
-    phone: form.phone,
-    rcs_id: form.rcsId,
-    rin: form.rin
-  };
+    return {
+        first_name: form.firstName,
+        last_name: form.lastName,
+        dob: `${form.year}-${form.month}-${form.day}`,
+        email: form.email,
+        home_street: form.homeStreet,
+        home_city: form.homeCity,
+        home_state: form.homeState,
+        home_zip: form.homeZip,
+        local_street: form.localStreet,
+        local_city: form.localCity,
+        local_state: form.localState,
+        local_zip: form.localZip,
+        phone: form.phone,
+        rcs_id: form.rcsId,
+        rin: form.rin
+    };
 }
 
 /**
@@ -73,22 +75,22 @@ export function memberFormToServerUser(form: MemberFormEntries): Partial<ServerU
  * @returns A user or undefined if one does not exist
  */
 export async function getUser(idOrGoogleId: string, rampartToken: string): Promise<ServerUser | undefined> {
-  if (!process.env.NEXT_PUBLIC_RAMPART_URL) {
-    return;
-  }
-  const rampartUrl = process.env.NEXT_PUBLIC_RAMPART_URL;
-  try {
-    // Request the user from Rampart passing the rampart token in as a header
-    const user: ServerUser = (await axios.get<ServerUser>(`${rampartUrl}/user/${idOrGoogleId}`,
-      {
-        headers: { 'rampart-token': rampartToken }
-      })).data;
-    return user;
-  } catch (err: any) {
-    if (axios.isAxiosError(err)) {
-      console.error(err.response?.data);
-    } else {
-      console.error(err);
+    if (!process.env.NEXT_PUBLIC_RAMPART_URL) {
+        return;
     }
-  }
+    const rampartUrl = process.env.NEXT_PUBLIC_RAMPART_URL;
+    try {
+    // Request the user from Rampart passing the rampart token in as a header
+        const user: ServerUser = (await axios.get<ServerUser>(`${rampartUrl}/user/${idOrGoogleId}`,
+            {
+                headers: { 'rampart-token': rampartToken }
+            })).data;
+        return user;
+    } catch (err: any) {
+        if (axios.isAxiosError(err)) {
+            console.error(err.response?.data);
+        } else {
+            console.error(err);
+        }
+    }
 }
