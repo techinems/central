@@ -32,19 +32,19 @@ const AuthGuard: FunctionComponent = ({ children }) => {
     }, [status, isSignedIn]);
 
     if (isSignedIn) {
-        // if (session.isNewUser === false) {
-        //     // Return all the children if signed in, fragment prevents a parent container as we don't want layout issues
-        //     return (
-        //         <Fragment>
-        //             {children}
-        //         </Fragment>
-        //     );
-        // } else {
+        if (session.isNewUser === false) {
+            // Return all the children if signed in, fragment prevents a parent container as we don't want layout issues
+            return (
+                <Fragment>
+                    {children}
+                </Fragment>
+            );
+        } else {
         // If not signed in show them the create account form
-        return (
-            <MemberForm title="Create Account" shouldCreateNewMember={true} />
-        );
-        // }
+            return (
+                <MemberForm title="Create Account" shouldCreateNewMember={true} />
+            );
+        }
     }
 
     return <div>Loading...</div>;

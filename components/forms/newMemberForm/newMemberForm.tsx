@@ -76,24 +76,22 @@ const MemberForm: FunctionComponent<MemberForm> = ({ title, shouldCreateNewMembe
     async function _submitForm(values: MemberFormEntries, actions: any) {
         // Make alert window appear
         await _sleep(1000);
-        alert(JSON.stringify(values, null, 2));
-        actions.setSubmitting(false);
-    
+
+        if (!shouldCreateNewMember) {
+            return;
+        }
+        try {
+            // We've finished handling the form so we can set the submitting to false
+            const createUserResponse = await axios.post('/api/user/createUser', values);
+            if (createUserResponse.status === 200) {
+                actions.setSubmitting(false);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+        // Refresh the page to get the new user (we must be null safe in case window isn't defined which is possible with next)
+        window?.location?.reload();
         setActiveStep(activeStep + 1);
-        // if (!shouldCreateNewMember) {
-        //     return;
-        // }
-        // try {
-        //     // We've finished handling the form so we can set the submitting to false
-        //     const createUserResponse = await axios.post('/api/user/createUser', values);
-        //     if (createUserResponse.status === 200) {
-        //         setSubmitting(false);
-        //     }
-        // } catch (err) {
-        //     console.error(err);
-        // }
-        // // Refresh the page to get the new user (we must be null safe in case window isn't defined which is possible with next)
-        // window?.location?.reload();
     }
 
     function _handleSubmit(values: MemberFormEntries, actions: any) {
@@ -128,12 +126,10 @@ const MemberForm: FunctionComponent<MemberForm> = ({ title, shouldCreateNewMembe
                         {activeStep === steps.length ? (
                             <React.Fragment>
                                 <Typography variant="h5" gutterBottom>
-                                    Thank you for your order.
+                                    Thank you for creating a user profile!
                                 </Typography>
                                 <Typography variant="subtitle1">
-                                    Your order number is #2001539. We have emailed your order
-                                    confirmation, and will send you an update when your order has
-                                    shipped.
+                                    Hit the &lsquo;finish&rsquo; button to go to your new dashboard.
                                 </Typography>
                             </React.Fragment>
                         ) : (

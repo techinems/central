@@ -17,7 +17,7 @@ const SchedulePage: NextAuthPage = () => {
 
             <main className="justify-center">
                 <h1 className="font-bold">
-          Congrats on signing In {firstName} {lastName}!
+                    Congrats on signing In {firstName} {lastName}!
                 </h1>
 
                 <div className="grid">

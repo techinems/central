@@ -1,6 +1,6 @@
 // Contains a few typings to help with authenticated state
 import { NextPage } from 'next';
-import type { AppProps } from 'next/app'
+import type { AppProps } from 'next/app';
 
 export type AuthPageOptions = {
   requiresAuth: boolean
